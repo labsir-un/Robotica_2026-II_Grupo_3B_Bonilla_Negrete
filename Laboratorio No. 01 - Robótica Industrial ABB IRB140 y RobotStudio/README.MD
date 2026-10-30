@@ -62,11 +62,11 @@ En esta etapa era fundamental tener en cuenta 2 elementos en particular para fav
 <table border="0" align="center" style="border-collapse: collapse; margin-bottom: 40px;">
   <tr>
     <td align="center" valign="middle" style="border: none; padding: 10px;">
-      <img src="Imagenes/AgarreSeccion.png" height="180" style="vertical-align: middle;" />
+      <img src="Imagenes/AgarreSeccion.png" height="300" style="vertical-align: middle;" />
       <p><b>Figura 1:</b> Vista en sección</p>
     </td>
     <td align="center" valign="middle" style="border: none; padding: 10px;">
-      <img src="Imagenes/AgarreRender.png" height="180" style="vertical-align: middle;" />
+      <img src="Imagenes/AgarreRender.png" height="300" style="vertical-align: middle;" />
       <p><b>Figura 2:</b> Render 3D</p>
     </td>
   </tr>
