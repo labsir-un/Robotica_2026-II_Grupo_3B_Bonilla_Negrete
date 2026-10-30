@@ -11,9 +11,8 @@
 
 <h2>Profesores: <br>Pedro Fabián Cárdenas Herrera <br> Manuel Felipe Carranza Montenegro</h2>
 
-<h4>Nombre Integrante 1<br>
-    Nombre Integrante 2<br>
-    Nombre Integrante 3</h4>
+<h4>Samuel David Negrete Lancheros<br>
+    Emmanuel Bonilla Mitrotti</h4>
 
 <p>
   <img alt="Ubuntu 24.04 LTS" src="https://img.shields.io/badge/Ubuntu-24.04%20LTS-E95420?logo=ubuntu&logoColor=white">
@@ -54,17 +53,17 @@ Aquí se documentan los laboratorios, avances, resultados y la presentación de 
 
 ### Integrante 1
 <div align="center">
-  <img src="./assets/integrantes/integrante1.jpg" alt="Foto integrante 1" style="border-radius: 50%; width: 180px;"><br>
+  <img src="Foto_Samuel.jpeg" alt="Foto integrante 1" style=": 20%; width: 180px;"><br>
 </div>
 
-- **Nombre completo:** Nombre Apellido
+- **Nombre completo:** Samuel David Lancheros
 - **Carrera:** Ingeniería Mecatrónica
-- **Correo institucional:** nombre@unal.edu.co
-- **Usuario de GitHub:** [usuariogithub](https://github.com/usuariogithub)
-- **Rol en el equipo:** Ej. Integración ROS 2, documentación, simulación
-- **Intereses:** Robótica móvil, visión artificial, automatización
+- **Correo institucional:** snegrete@unal.edu.co
+- **Usuario de GitHub:** [Snegunal](https://github.com/Snegunal)
+- **Rol en el equipo:** Codesarollador(Diseño CAD, Lógica de I/O, calibración, programación en RAPID)
+- **Intereses:** Control, simulacion, diseño mecánico y electrónico.
 - **Descripción breve:**  
-  Escribe aquí una breve presentación personal y académica del integrante.
+Hola soy Samuel, me apasiona aprender cosas nuevas y en esta asignatura no fue la excepción, robótica industrial, cinemática y programación.
 
 ---
 
@@ -83,18 +82,3 @@ Aquí se documentan los laboratorios, avances, resultados y la presentación de 
   Escribe aquí una breve presentación personal y académica del integrante.
 
 ---
-
-### Integrante 3
-<div align="center">
-  <img src="./assets/integrantes/integrante3.jpg" alt="Foto integrante 3" style="border-radius: 50%; width: 180px;"><br>
-</div>
-
-- **Nombre completo:** Nombre Apellido
-- **Carrera:** Ingeniería Mecatrónica
-- **Correo institucional:** nombre@unal.edu.co
-- **Usuario de GitHub:** [usuariogithub](https://github.com/usuariogithub)
-- **Rol en el equipo:** Ej. Documentación, pruebas, simulación
-- **Intereses:** Robótica industrial, sistemas autónomos, IA
-- **Descripción breve:**  
-  Escribe aquí una breve presentación personal y académica del integrante.
-

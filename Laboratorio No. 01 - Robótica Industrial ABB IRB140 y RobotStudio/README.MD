@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="Imagenes\Foto_Con_Resultado.jpeg" alt="Hola" width="600"/>
+  <img src="Imagenes\Foto_Con_Resultado.jpeg" alt="Hola" width="400"/>
 </p>
 
 ## Integrantes
@@ -28,6 +28,14 @@ de trayectorias
   <img src="Imagenes\TortaEjemplos.png" alt="Ejemplo de torta" width="400"/>
 </p>
 
+En los siguientes enlaces pueden observarse algunos ejemplos de automatización de procesos de decoración utilizando robots industriales:
+
+[Enlace 1](https://www.youtube.com/watch?v=ROowhMuF15s)
+
+[Enlace 2](https://www.youtube.com/watch?v=zf44RV27WsEs)
+
+
+Inspirados en estos ejemplos y considerando las características de los equipos disponibles en el laboratorio, cada grupo debía desarrollar una celda simplificada para la decoración automática de una torta virtual.
 
 ## Descripción Detallada de la Solución Implementada
 
