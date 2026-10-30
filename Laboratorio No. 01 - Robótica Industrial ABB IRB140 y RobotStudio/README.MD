@@ -5,12 +5,6 @@
   <img src="Imagenes\Foto_Con_Resultado.jpeg" alt="Hola" width="400"/>
 </p>
 
-## Integrantes
-- Samuel David Negrete Lancheros
-- Emmanuel Bonilla Mitrotti
-
----
-
 ## Video de la Práctica
 [Ver Video en YouTube](https://www.youtube.com/watch?v=aElz2iVJS0k)
 
@@ -37,20 +31,26 @@ En los siguientes enlaces pueden observarse algunos ejemplos de automatización 
 
 Inspirados en estos ejemplos y considerando las características de los equipos disponibles en el laboratorio, cada grupo debía desarrollar una celda simplificada para la decoración automática de una torta virtual.
 
+
 ## Descripción Detallada de la Solución Implementada
 
+La torta es representada mediante una superficie plana  rectangular ubicada inicialmente sobre una banda transportadora.
+
+La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
+trabajo, la banda se detiene completamente y el robot realiza la decoración.
+
+Finalizada la operación, el robot regresa a su posición HOME y la banda transportadora se pone nuevamente en movimiento para trasladar la torta decorada hasta el extremo final de la banda.
 
 ---
 
 ## Plano de Planta
 
 Ubicación y distribución espacial de los elementos utilizados:
-- Robot
-- Banda transportadora
-- Superficies de trabajo
-- Demás elementos de la celda
 
-![Plano de Planta](ruta/a/tu/imagen_plano.png)
+<div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+  <img src="Imagenes/RepGrafiso.png" width="48%" />
+  <img src="Imagenes/RepGrafTop.png" width="48%" />
+</div>
 
 ---
 
