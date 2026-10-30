@@ -85,9 +85,22 @@ Adicionalmente se exploró un estilo distinto de agarre para la tapa trasera, y 
 
 ## Diagrama de Flujo
 
-Diagrama explicativo de la secuencia completa del sistema:
+El programa corre en un ciclo infinito (WHILE TRUE). En cada vuelta el robot regresa a home y consulta, en orden, tres entradas digitales. Las condiciones no son excluyentes: se evalúan una tras otra en la misma vuelta.
 
-![Diagrama de Flujo](ruta/a/tu/imagen_diagrama.png)
+| Paso | Condición | Acciones del robot y de las E/S |
+|---|---|---|
+| 0 | Arranque de `main` | Entra al ciclo `WHILE TRUE` |
+| 1 | Siempre | `Path_20`: `MoveJ` a `Target_home` (referencia `wobj0`) |
+| 2 | `DI_01 = 1` (decorar pastel) | `SET DO_01` → `SET FWD_Conveyor` → espera 3.8 s → `RESET FWD_Conveyor` → `Path_10` (trayectoria de decoración) → `Path_20` (home) → `SET FWD_Conveyor` → espera 5 s → `RESET FWD_Conveyor` → `RESET DO_01` |
+| 3 | `DI_02 = 1` (modo mantenimiento) | `SET DO_02` → `Path_40` (`MoveJ` a `MANTENIMIENTO`) → espera 2 s → mientras `DI_02 = 0` espera 0.5 s → `Path_20` (home) → `RESET DO_02` |
+| 4 | `DI_03 = 1` (secuencia de reorientación) | `SET DO_03` → `FarmearAura` (`Path_50`) → `Path_20` (home) → `RESET DO_03` |
+| 5 | Fin de la vuelta | Regresa al paso 1 |
+
+La figura del diagrama de flujo se incluye a continuación:
+
+
+
+![Diagrama de flujo del sistema](docs/diagrama_flujo.png)
 
 ---
 
