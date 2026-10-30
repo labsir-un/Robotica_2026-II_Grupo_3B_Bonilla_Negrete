@@ -69,7 +69,7 @@ Hola soy Samuel, me apasiona aprender cosas nuevas y en esta asignatura no fue l
 
 ### Integrante 2
 <div align="center">
-  <img src="./assets/integrantes/integrante2.jpg" alt="Foto integrante 2" style="border-radius: 50%; width: 180px;"><br>
+  <img src="FotoEmmanuel.jpeg" alt="Foto integrante 2" style=": 50%; width: 180px;"><br>
 </div>
 
 - **Nombre completo:** Emmanuel Bonilla Mitrotti
