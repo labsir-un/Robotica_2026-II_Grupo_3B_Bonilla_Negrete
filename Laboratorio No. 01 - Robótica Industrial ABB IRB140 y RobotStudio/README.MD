@@ -59,19 +59,20 @@ En esta etapa era fundamental tener en cuenta 2 elementos en particular para fav
 
 ### Modelo CAD
 
-<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 40px;">
-  <!-- Columna 1 -->
-  <div style="text-align: center; width: 40%;">
-    <img src="Imagenes/AgarreSeccion.png" style="width: 48%;" />
-    <p><b>Figura 1:</b> Vista en sección</p>
-  </div>
-  
-  <!-- Columna 2 -->
-  <div style="text-align: center; width: 50%;">
-    <img src="Imagenes/AgarreRender.png" style="width: 48%;" />
-    <p><b>Figura 2:</b> Render 3D</p>
-  </div>
-</div>
+<table border="0" align="center" style="border-collapse: collapse; margin-bottom: 40px;">
+  <tr>
+    <td align="center" valign="middle" style="border: none; padding: 10px; width: 45%;">
+      <img src="Imagenes/AgarreSeccion.png" width="100%" />
+      <p><b>Figura 1:</b> Vista en sección</p>
+    </td>
+    <td align="center" valign="middle" style="border: none; padding: 10px; width: 55%;">
+      <img src="Imagenes/AgarreRender.png" width="100%" />
+      <p><b>Figura 2:</b> Render 3D</p>
+    </td>
+  </tr>
+</table>
+
+El texto que va debajo mantendrá la distancia adecuadamente.
 
 Adicionalmente se exploró un estilo distinto de agarre para la tapa trasera, y dejaba en el lugar correcto todo el mecanismo sin la posibilidad de salirse debido a vibraciones:
 
