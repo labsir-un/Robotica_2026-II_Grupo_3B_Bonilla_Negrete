@@ -50,10 +50,10 @@ Ubicación y distribución espacial de los elementos utilizados:
 <table border="0" align="center" style="border-collapse: collapse;">
   <tr>
     <td align="center" valign="middle" style="border: none; padding: 10px;">
-      <img src="Imagenes/RepGrafiso.png" height="180" style="vertical-align: middle;" />
+      <img src="Imagenes/RepGrafiso.png" height="240" style="vertical-align: middle;" />
     </td>
     <td align="center" valign="middle" style="border: none; padding: 10px;">
-      <img src="Imagenes/RepGrafTop.png" height="180" style="vertical-align: middle;" />
+      <img src="Imagenes/RepGrafTop.png" height="240" style="vertical-align: middle;" />
     </td>
   </tr>
 </table>
