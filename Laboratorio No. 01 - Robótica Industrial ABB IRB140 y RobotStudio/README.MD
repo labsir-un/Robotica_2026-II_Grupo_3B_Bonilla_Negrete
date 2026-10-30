@@ -1,7 +1,9 @@
 # Laboratorio No. 01 - Robótica Industrial - Trayectorias, Entradas y Salidas Digitales
 
 
-![Foto con el Resultado](<.Laboratorio No. 01 - Robótica Industrial ABB IRB140 y RobotStudio\Imagenes\Foto_Con_Resultado.jpeg>)
+<p align="center">
+  <img src="Imagenes\Foto_Con_Resultado.jpeg" alt="Hola" width="600"/>
+</p>
 
 ## Integrantes
 - Samuel David Negrete Lancheros
@@ -16,10 +18,19 @@
 
 ---
 
+## Problema 
+En la industria de alimentos, particularmente en los procesos de panadería y repostería, diversas operaciones repetitivas pueden ser automatizadas utilizando robots industriales.
+
+Una aplicación de este tipo corresponde a la decoración automática de tortas mediante el seguimiento controlado
+de trayectorias
+
+<p align="center">
+  <img src="Imagenes\TortaEjemplos.png" alt="Ejemplo de torta" width="400"/>
+</p>
+
+
 ## Descripción Detallada de la Solución Implementada
 
-
-[Escribe aquí la explicación detallada de cómo abordaron el problema, las etapas de desarrollo y el funcionamiento general de la celda de trabajo.]
 
 ---
 
