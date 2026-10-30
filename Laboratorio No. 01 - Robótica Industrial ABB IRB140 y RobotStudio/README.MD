@@ -55,7 +55,11 @@ Ubicación y distribución espacial de los elementos utilizados:
 ## Diseño y Modelo CAD de la Herramienta
 
 ### Diseño Detallado
-En esta etapa era fundamental tener en cuenta 2 elementos en particular para favorecer la resistencia de la herramienta ante los golpes, el primero fueron los **redondeos** en cada uno de los bordes entre las geometrias, y el segundo y más importante era un margen de tolerancia en la dirección normal brindada por la implementación de un **resorte**.
+En esta etapa fue fundamental considerar dos factores clave para optimizar la resistencia mecánica de la herramienta ante impactos:
+
+La inclusión de redondeos en las aristas de acople entre geometrías para reducir la concentración de esfuerzos.
+
+La integración de un resorte que proporciona un margen de tolerancia en la dirección normal, absorbiendo cargas imprevistas.
 
 ### Modelo CAD
 
@@ -71,10 +75,7 @@ En esta etapa era fundamental tener en cuenta 2 elementos en particular para fav
     </td>
   </tr>
 </table>
-
-El texto que va debajo mantendrá la distancia adecuadamente.
-
-Adicionalmente se exploró un estilo distinto de agarre para la tapa trasera, y dejaba en el lugar correcto todo el mecanismo sin la posibilidad de salirse debido a vibraciones:
+Adicionalmente, se diseñó un mecanismo de agarre alternativo para la tapa trasera, el cual garantiza la fijación del conjunto y previene desacoples causados por vibraciones operativas:
 
 <p align="center">
   <img src="Imagenes/AnimacionTapa.gif" alt="Animación del sistema en Fusion" width="300"/>
