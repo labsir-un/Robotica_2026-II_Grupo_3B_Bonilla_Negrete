@@ -47,10 +47,9 @@ Finalizada la operación, el robot regresa a su posición HOME y la banda transp
 
 Ubicación y distribución espacial de los elementos utilizados:
 
-<div align="center">
-  <img src="Imagenes/RepGrafiso.png" width="48%" style="vertical-align: middle;" />
-  <img src="Imagenes/RepGrafTop.png" width="48%" style="vertical-align: middle;" />
-</div>
+| | |
+| :---: | :---: |
+| <img src="Imagenes/RepGrafiso.png" width="100%"> | <img src="Imagenes/RepGrafTop.png" width="100%"> |
 ---
 
 ## Diseño y Modelo CAD de la Herramienta
