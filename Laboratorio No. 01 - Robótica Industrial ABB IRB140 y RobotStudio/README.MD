@@ -64,13 +64,13 @@ En esta etapa era fundamental tener en cuenta 2 elementos en particular para fav
 <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 40px;">
   <!-- Columna 1 -->
   <div style="text-align: center; width: 40%;">
-    <img src="Imagenes/AgarreSeccion.png" style="width: 100%;" />
+    <img src="Imagenes/AgarreSeccion.png" style="width: 50%;" />
     <p><b>Figura 1:</b> Vista en sección</p>
   </div>
   
   <!-- Columna 2 -->
   <div style="text-align: center; width: 50%;">
-    <img src="Imagenes/AgarreRender.png" style="width: 100%;" />
+    <img src="Imagenes/AgarreRender.png" style="width: 50%;" />
     <p><b>Figura 2:</b> Render 3D</p>
   </div>
 </div>
