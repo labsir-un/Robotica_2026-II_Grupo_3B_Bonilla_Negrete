@@ -34,12 +34,19 @@ Inspirados en estos ejemplos y considerando las características de los equipos 
 
 ## Descripción Detallada de la Solución Implementada
 
-La torta es representada mediante una superficie plana  rectangular ubicada inicialmente sobre una banda transportadora.
+Primero se tuvo que modelar la herramienta teniendo en cuenta las consideraciones más importantes mencionadas en [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta), posteriormente se tuvo que realizar la calibración de la herramienta, se realizó tanto la calibración manual como la calibración atomática, esto se especifica en más detalle en [Calibración de la herramienta](#calibracion).
+
+Entonces se crea el **Objeto de trabajo**, en la vida real se hizo uso de una caja de audifonos lo suficientemente plana y rígida para que asegurara pero además debía calibrarse, para lo primero 
+La torta es representada mediante una superficie plana  rectangular ubicada inicialmente sobre una banda transportadora
 
 La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
 trabajo, la banda se detiene completamente y el robot realiza la decoración.
 
 Finalizada la operación, el robot regresa a su posición HOME y la banda transportadora se pone nuevamente en movimiento para trasladar la torta decorada hasta el extremo final de la banda.
+
+Posteriormente se 
+
+Se realizó un path y puso problemas al llegar al punto 
 
 ---
 
