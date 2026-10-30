@@ -72,13 +72,13 @@ Hola soy Samuel, me apasiona aprender cosas nuevas y en esta asignatura no fue l
   <img src="./assets/integrantes/integrante2.jpg" alt="Foto integrante 2" style="border-radius: 50%; width: 180px;"><br>
 </div>
 
-- **Nombre completo:** Nombre Apellido
+- **Nombre completo:** Emmanuel Bonilla Mitrotti
 - **Carrera:** Ingeniería Mecatrónica
-- **Correo institucional:** nombre@unal.edu.co
-- **Usuario de GitHub:** [usuariogithub](https://github.com/usuariogithub)
-- **Rol en el equipo:** Ej. Modelado, programación, control
-- **Intereses:** Manipulación, ROS 2, control de robots
+- **Correo institucional:** embonillam@unal.edu.co
+- **Usuario de GitHub:** [EmmanuelBonillaMitrotti](https://github.com/EmmanuelBonillaMitrotti)
+- **Rol en el equipo:** Codesarollador(Diseño CAD, Lógica de I/O, calibración, programación en RAPID)
+- **Intereses:** Control, instrumentación, simulación y automatización.
 - **Descripción breve:**  
-  Escribe aquí una breve presentación personal y académica del integrante.
+  Hola soy Emmanuel, me gusta aplicar los conocimientos teóricos a un ambito practico, como lo hacemos en robótica.
 
 ---
