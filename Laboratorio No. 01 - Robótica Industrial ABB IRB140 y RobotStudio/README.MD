@@ -181,13 +181,57 @@ El sistema se opera con tres pulsadores conectados a las entradas digitales del 
 
 ## Comparación de Calibración de la Herramienta
 
-Análisis comparativo de los resultados obtenidos al calibrar el TCP (Tool Center Point) mediante:
-1. **RobotStudio (Simulación):** [Resultados/Valores]
-2. **Robot Real:** [Resultados/Valores]
+## 3. Comparación de la calibración de la herramienta: RobotStudio y robot real
 
-**Conclusiones y diferencias observadas:**
-[Insertar texto comparativo y margen de error/diferencias encobradas.]
+### 3.1 Datos de calibración
 
+| Fuente | Herramienta | Origen |
+|---|---|---|
+| `PERS tooldata PuntaMarcador` | `PuntaMarcador` | RobotStudio: herramienta definida por su geometría en la simulación |
+| `Calibracion herramienta con robot` | `lijatool` y módulo `TCP_lijatool2` con 4 puntos `pTCP_Point1..4` | Robot real: calibración del TCP con el método de 4 puntos |
+
+### 3.2 Calibración de 4 puntos con el robot real
+
+La herramienta `lijatool` quedó con TCP `[41.4053, -0.941058, 152.516]`, orientación `[1,0,0,0]` y carga de 1 kg. El módulo `TCP_lijatool2` guarda las cuatro poses del robot con orientaciones diferentes (`pTCP_Point1` a `pTCP_Point4`), tal como exige el método: la punta de la herramienta se lleva al mismo punto fijo desde cuatro orientaciones y el controlador calcula la posición del TCP.
+
+### 3.3 Herramienta: RobotStudio frente a calibración con el robot real
+
+La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las posiciones del TCP están expresadas respecto a la brida del robot (`tool0`), por lo que son comparables entre sí.
+
+| Parámetro | RobotStudio (`PuntaMarcador`) | Robot real (`lijatool`, 4 puntos) | Diferencia (real − RobotStudio) |
+|---|---|---|---|
+| X (mm) | 38.039 | 41.405 | +3.366 |
+| Y (mm) | −2.000 | −0.941 | +1.059 |
+| Z (mm) | 150.586 | 152.516 | +1.930 |
+| Longitud del TCP (mm) | 155.33 | 158.04 | +2.71 |
+| Orientación (cuaternión) | `[0.9659, 0, 0.2588, 0]` (30° sobre Y) | `[1, 0, 0, 0]` (sin rotación) | 30° sobre Y |
+| Masa (kg) | 1 | 1 | 0 |
+| Centro de gravedad (mm) | `[0, 0, 1]` | `[0, 0, 0]` | 1 mm en Z |
+
+**Distancia total entre ambos TCP: 4.02 mm** (3.53 mm en el plano XY y 1.93 mm en Z).
+
+**Análisis**
+
+- Las dos calibraciones coinciden en el orden de magnitud (TCP de unos 155 a 158 mm), pero el TCP del robot real queda desplazado unos 4 mm respecto al de RobotStudio, sobre todo en X (+3.4 mm).
+- La orientación no es comparable directamente: el método de 4 puntos solo determina la posición del TCP y deja la orientación en `[1,0,0,0]`. La inclinación de 30° de `PuntaMarcador` solo existe en el modelo de RobotStudio.
+- La masa coincide y el centro de gravedad difiere solo 1 mm; en ambos casos son valores nominales, no medidos.
+
+### 3.4 Comparación del método
+
+| Aspecto | RobotStudio | Robot real |
+|---|---|---|
+| Cómo se obtiene el TCP | Se calcula a partir de la geometría/CAD de la herramienta | Se mide moviendo el robot a 4 poses con la punta en el mismo punto |
+| Precisión | Exacta respecto al modelo, pero ignora holguras de montaje y fabricación | Incluye el montaje real, pero depende de la habilidad del operador al alinear la punta |
+| Orientación del TCP | Se define directamente (aquí 30° sobre Y) | El método de 4 puntos solo determina posición; la orientación queda `[1,0,0,0]` salvo que se usen más puntos (Z/X) |
+| Carga (`tload`) | Valor nominal | Valor nominal; no se calibró dinámicamente |
+| Tiempo y riesgo | Rápido y sin riesgo de colisión | Requiere el robot, tiempo y cuidado con la punta |
+
+### 3.5 Conclusiones
+
+- El TCP calibrado con el robot real difiere 4.02 mm del definido en RobotStudio, con la mayor diferencia en X.
+- La orientación de la herramienta solo se definió en RobotStudio, porque el método de 4 puntos no la calibra.
+- La calibración real incluye el montaje físico de la herramienta, pero depende de la precisión con que se alinea la punta al tomar los cuatro puntos; la de RobotStudio es exacta respecto al modelo, pero no considera las tolerancias del montaje.
+- Si se requiere calibrar también la orientación del TCP en el robot real, se puede complementar con el método de 5 o 6 puntos.
 ---
 
 ## Código Completo en RAPID
