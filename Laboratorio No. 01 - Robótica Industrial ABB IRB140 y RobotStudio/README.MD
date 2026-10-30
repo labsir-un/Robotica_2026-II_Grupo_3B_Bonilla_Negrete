@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="Imagenes\Foto_Con_Resultado.jpeg" alt="Hola" width="400"/>
+  <img src="Imagenes\Foto_Con_Resultado.jpeg"  width="400"/>
 </p>
 
 ## Video de la Práctica
@@ -57,10 +57,29 @@ Ubicación y distribución espacial de los elementos utilizados:
 ## Diseño y Modelo CAD de la Herramienta
 
 ### Diseño Detallado
-[Explicación de la geometría, dimensiones y características del diseño de la herramienta.]
+En esta etapa era fundamental tener en cuenta 2 elementos en particular para favorecer la resistencia de la herramienta ante los golpes, el primero fueron los **redondeos** en cada uno de los bordes entre las geometrias, y el segundo y más importante era un margen de tolerancia en la dirección normal brindada por la implementación de un **resorte**.
 
 ### Modelo CAD
-![Modelo CAD Herramienta](ruta/a/tu/imagen_cad.png)
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 40px;">
+  <!-- Columna 1 -->
+  <div style="text-align: center; width: 40%;">
+    <img src="Imagenes/AgarreSeccion.png" style="width: 100%;" />
+    <p><b>Figura 1:</b> Vista en sección</p>
+  </div>
+  
+  <!-- Columna 2 -->
+  <div style="text-align: center; width: 50%;">
+    <img src="Imagenes/AgarreRender.png" style="width: 100%;" />
+    <p><b>Figura 2:</b> Render 3D</p>
+  </div>
+</div>
+
+Adicionalmente se exploró un estilo distinto de agarre para la tapa trasera, y dejaba en el lugar correcto todo el mecanismo sin la posibilidad de salirse debido a vibraciones:
+
+<p align="center">
+  <img src="Imagenes/AnimacionTapa.gif" alt="Animación del sistema en Fusion" width="300"/>
+</p>
 
 ---
 
