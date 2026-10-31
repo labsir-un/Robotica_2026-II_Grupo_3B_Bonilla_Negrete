@@ -83,7 +83,7 @@ A continuación, se procedió con la definición del **Workobject (Wobj)**. Para
 La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra los nombres y apodos de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna). lo que se realiza inmediatamente despues es la calibración del **Workobject (Wobj)**, explicado con detalle en: [Calibración del objeto de trabajo](#36-objeto-de-trabajo-workobject).
 ### Generación de Trayectorias y Solución de Singularidades
 
-Para la definición de las trayectorias (*Paths*), se crearon los puntos de referencia (*Targets*) seleccionando manualmente los vértices del modelo `.SAT` importado. Posteriormente, mediante la función **Create Path**, se enlazaron estos puntos para estructurar la trayectoria de trabajo (`Path 10` para el trazado/decoración) y la ruta de aproximación/retorno (`Path 20` hacia la posición *Home*). Ambas se integraron consecutivamente en la [Estructura del programa](#21-estructura-del-programa).
+Para la definición de las trayectorias (*Paths*), se crearon los puntos de referencia (*Targets*) seleccionando manualmente los vértices del modelo `.SAT` importado. Posteriormente, mediante la función **Create Path**, se enlazaron estos puntos para estructurar la trayectoria de trabajo (`Path 10` para el trazado/decoración) y la ruta de aproximación/retorno (`Path 20` hacia la posición *Home*). La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de trabajo, la banda se detiene completamente y el robot realiza la decoración. Finalizada la operación, el robot regresa a su posición HOME y la banda transportadora se pone nuevamente en movimiento para trasladar la torta decorada hasta el extremo final de la banda. Esto se integra consecutivamente en RAPID y se desarrolla con más detalle en la sección: [Estructura del programa](#21-estructura-del-programa).
 
 Durante este proceso se presentó el primer desafío técnico: las **configuraciones de ejes por defecto** asignadas a los *Targets* no eran físicamente alcanzables por el robot. 
 
@@ -92,19 +92,20 @@ Para resolverlo, se aplicó la siguiente estrategia:
 2. **Corrección de singularidad (Gimbal Lock):** A pesar del reajuste, el sistema continuaba generando errores de alcanzabilidad debido a la proximidad a una posición de singularidad de muñeca (*Gimbal Lock*). 
 3. **Solución:** Se aplicó una **rotación de -15° alrededor del eje Y** al *Workobject (Wobj)*. Esta reorientación espacial alejó la herramienta de la zona crítica de singularidad y permitió una ejecución fluida y libre de errores en la simulación. 
 
+### Rutina de Mantenimiento y Control por Entradas Digitales
 
+Para habilitar una estación de cambio de herramienta accesible, se implementó una rutina de mantenimiento asociada a la entrada digital `DI_02`:
 
+1. **Definición de la posición de Mantenimiento (`Path 40`):** Mediante mediciones físicas en el espacio de trabajo con flexómetro, se determinaron las coordenadas ergonómicas ideales para realizar el reemplazo cómodo de la herramienta. Con estos puntos se definieron los *Targets* correspondientes y se estructuró el `Path 40`.
+2. **Ciclo de Mantenimiento:** Al recibir la señal del pulsador `DI_02`, el robot se desplaza desde la posición *Home* hacia la posición de mantenimiento. Una vez finalizado el cambio de la herramienta, al presionar nuevamente `DI_02`, la rutina retoma la trayectoria de regreso a *Home*.
+3. **Inicio del Ciclo de Trabajo:** Estando el robot resguardado en *Home*, al activarse la entrada digital `DI_03`, se desencadena la ejecución principal de la rutina (*Farmear Aura*).
 
-para ir al Home, *Path 40* para la posición de mantenimiento y *Path 50* para Farmear Aura
+### Rutina de Reorientación Espacial (*Farmear Aura*) 
 
-La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
-trabajo, la banda se detiene completamente y el robot realiza la decoración.
+La trayectoria `Path 50` comprende una secuencia de 11 *Targets* que comparten exactamente las mismas coordenadas de posición, pero varían progresivamente en intervalos de 18° en su orientación. 
 
-Finalizada la operación, el robot regresa a su posición HOME y la banda transportadora se pone nuevamente en movimiento para trasladar la torta decorada hasta el extremo final de la banda.
+Esta configuración permite realizar una trayectoria de reorientación pura sobre el Tool Center Point (TCP): la punta de la herramienta permanece fija en el espacio mientras la estructura cinemática del robot ejecuta una rotación coordinada alrededor de dicho punto focal. Una vez culminada esta rutina, el robot retorna a la posición *Home*, dando por finalizado el ciclo de trabajo completo.
 
-Posteriormente se 
-
-Se realizó un path y puso problemas al llegar al punto 
 
 ---
 
