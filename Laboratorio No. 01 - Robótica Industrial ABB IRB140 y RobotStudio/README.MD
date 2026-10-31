@@ -249,6 +249,10 @@ La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las p
 
 El objeto de trabajo se calibró únicamente en RobotStudio. Para ello se usó otro archivo `.sat` que contiene la forma del objeto (el pastel) y la figura de la trayectoria que debe seguir el robot. Con el origen del objeto de trabajo definido sobre este modelo, los objetivos de la trayectoria quedan expresados en sus coordenadas, de modo que el trazado depende del objeto y no de la posición del robot.
 
+<p align="center">
+  <img src="Imagenes\Screenshot 2026-10-30 193146.png" alt="Work object" width="400"/>
+</p>
+
 | Parámetro | Valor (`Workobject_pastel`) |
 |---|---|
 | Origen X, Y, Z (mm) | `[644.76, -106.22, 117.65]` |
