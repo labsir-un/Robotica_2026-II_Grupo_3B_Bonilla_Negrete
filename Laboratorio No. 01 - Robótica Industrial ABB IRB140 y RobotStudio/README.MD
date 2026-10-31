@@ -34,7 +34,7 @@ Inspirados en estos ejemplos y considerando las características de los equipos 
 
 ## Descripción Detallada de la Solución Implementada
 
-Primero se tuvo que modelar la herramienta teniendo en cuenta las consideraciones más importantes mencionadas en [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta), posteriormente se tuvo que realizar la calibración de la herramienta, se realizó tanto la calibración manual como la calibración atomática, esto se especifica en más detalle en [Calibración de la herramienta](#calibracion).
+Primero se tuvo que modelar la herramienta teniendo en cuenta las consideraciones más importantes mencionadas en [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta), posteriormente se tuvo que realizar la calibración de la herramienta, se realizó tanto la calibración manual como la calibración atomática, esto se especifica en más detalle en [Calibración de la herramienta](#3-comparación-de-la-calibración-de-la-herramienta-robotstudio-y-robot-real).
 
 Entonces se crea el **Objeto de trabajo**, en la vida real se hizo uso de una caja de audifonos lo suficientemente plana y rígida para que asegurara pero además debía calibrarse, para lo primero 
 La torta es representada mediante una superficie plana  rectangular ubicada inicialmente sobre una banda transportadora
@@ -194,6 +194,7 @@ El sistema se opera con tres pulsadores conectados a las entradas digitales del 
 
 La herramienta `lijatool` quedó con TCP `[41.4053, -0.941058, 152.516]`, orientación `[1,0,0,0]` y carga de 1 kg. El módulo `TCP_lijatool2` guarda las cuatro poses del robot con orientaciones diferentes (`pTCP_Point1` a `pTCP_Point4`), tal como exige el método: la punta de la herramienta se lleva al mismo punto fijo desde cuatro orientaciones y el controlador calcula la posición del TCP.
 
+[Video de la calibración manual: ](Imagenes/Calibracion.mp4)
 
 <video src="Imagenes/Calibracion.mp4" controls width="100%">
 </video>
