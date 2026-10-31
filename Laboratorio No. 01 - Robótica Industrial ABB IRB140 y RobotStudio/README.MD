@@ -205,6 +205,10 @@ La herramienta `lijatool` quedó con TCP `[41.4053, -0.941058, 152.516]`, orient
 
 Se importó un archivo `.sat` con el modelo de la herramienta (el marcador) y se calibró el *tool* tomando como TCP un punto de ese modelo, la punta del marcador. A partir de ese punto, RobotStudio calcula la posición del TCP respecto a la brida del robot y genera el `tooldata` correspondiente:
 
+<p align="center">
+  <img src="Imagenes\Tool.png" alt="Work object" width="400"/>
+</p>
+
 | Parámetro | Valor (`PuntaMarcador`) |
 |---|---|
 | Posición del TCP (mm) | `[38.039, -2, 150.586]` |
