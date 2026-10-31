@@ -57,13 +57,6 @@ Desarrollar una celda robotizada para la decoración automática de una torta vi
 8. Controlar la banda transportadora (`FWD_Conveyor` y `BWD_Conveyor`) para posicionar y evacuar la torta.
 9. Simular la celda en RobotStudio y validar el funcionamiento en el robot real.
 
-### Simplificaciones
-
-- La torta es **virtual**: no se aplica glaseado. El marcador representa la boquilla y el trazo sobre la superficie representa la decoración.
-- La celda es **simplificada**: un robot, una banda, tres pulsadores y una única trayectoria de decoración.
-- La trayectoria se define sobre una **superficie plana** en las coordenadas del objeto de trabajo.
-- El modo mantenimiento solo retira el robot a una posición fija de manera indefinida.
-
 ### Requerimientos del sistema
 
 | Requerimiento | Descripción |
