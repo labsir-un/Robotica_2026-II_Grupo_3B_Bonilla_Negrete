@@ -31,13 +31,13 @@ En los siguientes enlaces pueden observarse algunos ejemplos de automatización 
 
 Inspirados en estos ejemplos y considerando las características de los equipos disponibles en el laboratorio, cada grupo debía desarrollar una celda simplificada para la decoración automática de una torta virtual.
 
-
 ## Descripción Detallada de la Solución Implementada
 
-Primero se tuvo que modelar la herramienta teniendo en cuenta las consideraciones más importantes mencionadas en [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta), posteriormente se tuvo que realizar la calibración de la herramienta, se realizó tanto la calibración manual como la calibración atomática, esto se especifica en más detalle en [Calibración de la herramienta](#3-comparación-de-la-calibración-de-la-herramienta-robotstudio-y-robot-real).
+En primer lugar, se modeló la herramienta considerando los criterios clave detallados en la sección de [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta). Posteriormente, se llevó a cabo el proceso de calibración del Tool Center Point (TCP) mediante métodos tanto manuales como automáticos; el análisis comparativo entre ambos enfoques se profundiza en la sección de [Calibración de la herramienta](#3-comparación-de-la-calibración-de-la-herramienta-robotstudio-y-robot-real).
 
-Entonces se crea el **Objeto de trabajo**, en la vida real se hizo uso de una caja de audifonos lo suficientemente plana y rígida para que asegurara pero además debía calibrarse, para lo primero 
-La torta es representada mediante una superficie plana  rectangular ubicada inicialmente sobre una banda transportadora
+A continuación, se procedió con la definición del **Workobject (Wobj)**. Para la validación experimental con el robot real, se utilizó el empaque rígido de unos audífonos por su superficie plana y estabilidad estructural.
+
+La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra las firmas de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna).
 
 La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
 trabajo, la banda se detiene completamente y el robot realiza la decoración.
