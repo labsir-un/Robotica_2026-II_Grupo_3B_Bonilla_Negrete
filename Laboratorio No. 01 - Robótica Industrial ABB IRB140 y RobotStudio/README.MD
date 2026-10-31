@@ -13,23 +13,71 @@
 ---
 
 ## Problema 
-En la industria de alimentos, particularmente en los procesos de panadería y repostería, diversas operaciones repetitivas pueden ser automatizadas utilizando robots industriales.
 
-Una aplicación de este tipo corresponde a la decoración automática de tortas mediante el seguimiento controlado
-de trayectorias
+### Contexto
+
+En la industria de alimentos, y en particular en panadería y repostería, muchas operaciones son repetitivas, exigen precisión y dependen de la habilidad del operario: dosificar, cortar, decorar y empacar, entre otras. Automatizarlas con robots industriales mejora la repetibilidad, reduce los tiempos de ciclo y los desperdicios, y libera al personal de tareas monótonas. Además, la trazabilidad y la higiene del proceso se controlan con mayor facilidad.
+
+La decoración de tortas es un ejemplo claro. Una buena decoración requiere reproducir el mismo diseño en cada unidad, con trazos de grosor y posición uniformes, algo difícil de sostener a mano cuando el volumen de producción crece. Un robot que sigue trayectorias programadas sobre la superficie de la torta resuelve este problema: el diseño se define una sola vez y se repite con la misma calidad en cada ciclo.
 
 <p align="center">
   <img src="Imagenes\TortaEjemplos.png" alt="Ejemplo de torta" width="400"/>
 </p>
 
-En los siguientes enlaces pueden observarse algunos ejemplos de automatización de procesos de decoración utilizando robots industriales:
+Como referencia se tomaron dos ejemplos de decoración automatizada con robots industriales:
 
 [Enlace 1](https://www.youtube.com/watch?v=ROowhMuF15s)
 
 [Enlace 2](https://www.youtube.com/watch?v=zf44RV27WsEs)
 
+### Problema
 
-Inspirados en estos ejemplos y considerando las características de los equipos disponibles en el laboratorio, cada grupo debía desarrollar una celda simplificada para la decoración automática de una torta virtual.
+Se requiere diseñar e implementar una **celda robotizada simplificada** que decore automáticamente una torta virtual mediante el seguimiento controlado de una trayectoria, usando los equipos disponibles en el laboratorio. El reto consiste en integrar en un mismo sistema:
+
+- Un **robot industrial** (ABB IRB140) que sigue la trayectoria con un marcador montado como herramienta.
+- Una **banda transportadora** que posiciona la torta bajo el robot y la evacúa al terminar.
+- **Entradas y salidas digitales** (Pulsadores y testigos) con los que un operador selecciona la rutina y conoce su estado.
+- Un **programa en RAPID** que coordina el movimiento del robot, la banda y las señales de entrada y salida.
+
+Para que el trazo sea fiel al diseño, el robot debe conocer con precisión dónde está la punta del marcador (calibración de la herramienta) y dónde está la torta (calibración del objeto de trabajo). Un error en cualquiera de las dos se traduce en un dibujo desplazado, deformado o fuera de la superficie.
+
+### Objetivo general
+
+Desarrollar una celda robotizada para la decoración automática de una torta virtual, que combine el seguimiento de trayectorias del robot con el control de una banda transportadora y de las señales de entrada y salida del sistema.
+
+### Objetivos específicos
+
+1. Diseñar la herramienta portamarcador y su modelo CAD, y definir su TCP.
+2. Calibrar la herramienta y el objeto de trabajo en RobotStudio a partir de modelos CAD (`.sat`) de la herramienta y de la torta con su trayectoria.
+3. Calibrar la herramienta con el robot real (método de 4 puntos) y comparar el resultado con el de RobotStudio.
+4. Programar en RAPID la trayectoria de decoración y las rutinas auxiliares del sistema.
+5. Implementar la rutina de **mantenimiento**, con una posición de retiro del robot y salida y regreso controlados por un pulsador.
+6. Implementar la rutina **`FarmearAura`**, de reorientación del TCP en un punto fijo.
+7. Integrar tres pulsadores (`DI_01`, `DI_02`, `DI_03`) que inician las rutinas y tres salidas (`DO_01`, `DO_02`, `DO_03`) que indican la rutina activa.
+8. Controlar la banda transportadora (`FWD_Conveyor` y `BWD_Conveyor`) para posicionar y evacuar la torta.
+9. Simular la celda en RobotStudio y validar el funcionamiento en el robot real.
+
+### Simplificaciones
+
+- La torta es **virtual**: no se aplica glaseado. El marcador representa la boquilla y el trazo sobre la superficie representa la decoración.
+- La celda es **simplificada**: un robot, una banda, tres pulsadores y una única trayectoria de decoración.
+- La trayectoria se define sobre una **superficie plana** en las coordenadas del objeto de trabajo.
+- El modo mantenimiento solo retira el robot a una posición fija de manera indefinida.
+
+### Requerimientos del sistema
+
+| Requerimiento | Descripción |
+|---|---|
+| Seguimiento de trayectoria | El robot recorre el diseño con movimientos lineales y levanta el marcador entre trazos |
+| Orientación constante | El marcador mantiene la misma inclinación sobre la superficie durante todo el trazado |
+| Posicionamiento de la torta | La banda lleva la torta a la zona de trabajo y la evacúa al terminar |
+| Modo mantenimiento | El robot se retira a una posición segura y regresa a *home* con una segunda pulsación de `DI_02` |
+| Secuencia `FarmearAura` | El robot reorienta el TCP de 0° a 90° y de regreso en un punto fijo, sin desplazarlo |
+| Operación manual | Tres pulsadores inician la decoración, el mantenimiento y `FarmearAura` |
+| Indicación de estado | Tres salidas digitales (testigos) señalan qué rutina está en ejecución |
+| Operación continua | Al terminar cada rutina el robot vuelve a *home* y queda a la espera de nuevas órdenes |
+
+
 
 ## Descripción Detallada de la Solución Implementada
 
