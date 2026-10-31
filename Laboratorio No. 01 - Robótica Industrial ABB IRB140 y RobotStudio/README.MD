@@ -199,7 +199,19 @@ La herramienta `lijatool` quedó con TCP `[41.4053, -0.941058, 152.516]`, orient
 <video src="Imagenes/Calibracion.mp4" controls width="100%">
 </video>
 
-### 3.3 Herramienta: RobotStudio frente a calibración con el robot real
+### 3.3 Calibración en RobotStudio
+
+Se importó un archivo `.sat` con el modelo de la herramienta (el marcador) y se calibró el *tool* tomando como TCP un punto de ese modelo, la punta del marcador. A partir de ese punto, RobotStudio calcula la posición del TCP respecto a la brida del robot y genera el `tooldata` correspondiente:
+
+| Parámetro | Valor (`PuntaMarcador`) |
+|---|---|
+| Posición del TCP (mm) | `[38.039, -2, 150.586]` |
+| Orientación (cuaternión) | `[0.9659, 0, 0.2588, 0]` (30° sobre Y) |
+| Masa / centro de gravedad | 1 kg / `[0, 0, 1]` mm |
+
+[Video de la calibración manual: ](Imagenes/Prueba_de_calibración_Robot_Studio.mp4)
+
+### 3.4 Herramienta: RobotStudio frente a calibración con el robot real
 
 La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las posiciones del TCP están expresadas respecto a la brida del robot (`tool0`), por lo que son comparables entre sí.
 
@@ -221,7 +233,7 @@ La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las p
 - La orientación no es comparable directamente: el método de 4 puntos solo determina la posición del TCP y deja la orientación en `[1,0,0,0]`. La inclinación de 30° de `PuntaMarcador` solo existe en el modelo de RobotStudio.
 - La masa coincide y el centro de gravedad difiere solo 1 mm; en ambos casos son valores nominales, no medidos.
 
-### 3.4 Comparación del método
+### 3.5 Comparación del método
 
 | Aspecto | RobotStudio | Robot real |
 |---|---|---|
@@ -231,7 +243,7 @@ La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las p
 | Carga (`tload`) | Valor nominal | Valor nominal; no se calibró dinámicamente |
 | Tiempo y riesgo | Rápido y sin riesgo de colisión | Requiere el robot, tiempo y cuidado con la punta |
 
-### 3.5 Conclusiones
+### 3.6 Conclusiones
 
 - El TCP calibrado con el robot real difiere 4.02 mm del definido en RobotStudio, con la mayor diferencia en X.
 - La orientación de la herramienta solo se definió en RobotStudio, porque el método de 4 puntos no la calibra.
