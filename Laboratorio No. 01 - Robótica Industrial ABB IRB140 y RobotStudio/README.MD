@@ -39,6 +39,7 @@ A continuación, se procedió con la definición del **Workobject (Wobj)**. Para
 
 La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra las firmas de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna). lo que se realiza inmediatamente despues es la calibración del **Workobject (Wobj)**, explicado con detalle en: [Calibración del objeto de trabajo](#36-objeto-de-trabajo-workobject).
 
+Para definir las trayectorias (*Paths*) se tenian que definir los puntos a partir de los vertices del archivo `.SAT` 
 
 La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
 trabajo, la banda se detiene completamente y el robot realiza la decoración.
