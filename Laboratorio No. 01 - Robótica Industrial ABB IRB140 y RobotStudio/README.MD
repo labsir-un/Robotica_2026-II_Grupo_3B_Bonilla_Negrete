@@ -39,7 +39,12 @@ A continuación, se procedió con la definición del **Workobject (Wobj)**. Para
 
 La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra las firmas de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna). lo que se realiza inmediatamente despues es la calibración del **Workobject (Wobj)**, explicado con detalle en: [Calibración del objeto de trabajo](#36-objeto-de-trabajo-workobject).
 
-Para definir las trayectorias (*Paths*) se tenian que definir los puntos a partir de los vertices del archivo `.SAT` 
+Para definir las trayectorias (*Paths*) se tenian que definir los **target** a partir de los vertices del archivo `.SAT` esto se hace de forma manual y luego se utiliza la función: *Create new Path* para unirlos, luego de crear los path para ir a *Path 10* para **decoración** y *Path 20* para ir a **Home** inmediatamente después se empezaron a introducir dentro de [Estructura del programa](#21-estructura-del-programa). y en este momento ocurrió el primer problema y es que las configuraciones por defecto que tomaban los target
+
+
+
+
+para ir al Home, *Path 40* para la posición de mantenimiento y *Path 50* para Farmear Aura
 
 La banda transporta la torta hasta la estación de trabajo del robot. Una vez ubicada dentro de su espacio de
 trabajo, la banda se detiene completamente y el robot realiza la decoración.
