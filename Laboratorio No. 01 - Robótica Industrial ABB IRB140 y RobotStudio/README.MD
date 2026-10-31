@@ -33,13 +33,23 @@ Inspirados en estos ejemplos y considerando las características de los equipos 
 
 ## Descripción Detallada de la Solución Implementada
 
+### Herramienta
 En primer lugar, se modeló la herramienta considerando los criterios clave detallados en la sección de [Diseño y modelo CAD de la herramienta](#diseño-y-modelo-cad-de-la-herramienta). Posteriormente, se llevó a cabo el proceso de calibración del Tool Center Point (TCP) mediante métodos tanto manuales como automáticos; el análisis comparativo entre ambos enfoques se profundiza en la sección de [Calibración de la herramienta](#3-comparación-de-la-calibración-de-la-herramienta-robotstudio-y-robot-real).
 
+### WorkObject
 A continuación, se procedió con la definición del **Workobject (Wobj)**. Para la validación experimental con el robot real, se utilizó el empaque rígido de unos audífonos por su superficie plana y estabilidad estructural.
 
-La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra las firmas de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna). lo que se realiza inmediatamente despues es la calibración del **Workobject (Wobj)**, explicado con detalle en: [Calibración del objeto de trabajo](#36-objeto-de-trabajo-workobject).
+La trayectoria de trazado sobre la "torta" consiste en una superficie rectangular que integra los nombres y apodos de los integrantes del equipo (*Lijaman* y *Samuel*), junto con el dibujo de la Copa Pistón en la parte inferior. La geometría vectorial de las letras y la figura se diseñó en **Autodesk Fusion**. Para facilitar la generación de trayectorias en **RobotStudio** mediante la selección directa de vértices sobre el archivo `.SAT` importado, se optó por modelar la gráfica como un bajo relieve (extrusión interna). lo que se realiza inmediatamente despues es la calibración del **Workobject (Wobj)**, explicado con detalle en: [Calibración del objeto de trabajo](#36-objeto-de-trabajo-workobject).
+### Generación de Trayectorias y Solución de Singularidades
 
-Para definir las trayectorias (*Paths*) se tenian que definir los **target** a partir de los vertices del archivo `.SAT` esto se hace de forma manual y luego se utiliza la función: *Create new Path* para unirlos, luego de crear los path para ir a *Path 10* para **decoración** y *Path 20* para ir a **Home** inmediatamente después se empezaron a introducir dentro de [Estructura del programa](#21-estructura-del-programa). y en este momento ocurrió el primer problema y es que las configuraciones por defecto que tomaban los target
+Para la definición de las trayectorias (*Paths*), se crearon los puntos de referencia (*Targets*) seleccionando manualmente los vértices del modelo `.SAT` importado. Posteriormente, mediante la función **Create Path**, se enlazaron estos puntos para estructurar la trayectoria de trabajo (`Path 10` para el trazado/decoración) y la ruta de aproximación/retorno (`Path 20` hacia la posición *Home*). Ambas se integraron consecutivamente en la [Estructura del programa](#21-estructura-del-programa).
+
+Durante este proceso se presentó el primer desafío técnico: las **configuraciones de ejes por defecto** asignadas a los *Targets* no eran físicamente alcanzables por el robot. 
+
+Para resolverlo, se aplicó la siguiente estrategia:
+1. **Reconfiguración de ejes:** Se seleccionaron las configuraciones angulares con la menor desviación posible respecto a la postura *Home*.
+2. **Corrección de singularidad (Gimbal Lock):** A pesar del reajuste, el sistema continuaba generando errores de alcanzabilidad debido a la proximidad a una posición de singularidad de muñeca (*Gimbal Lock*). 
+3. **Solución:** Se aplicó una **rotación de -15° alrededor del eje Y** al *Workobject (Wobj)*. Esta reorientación espacial alejó la herramienta de la zona crítica de singularidad y permitió una ejecución fluida y libre de errores en la simulación. 
 
 
 
