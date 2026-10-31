@@ -194,6 +194,10 @@ El sistema se opera con tres pulsadores conectados a las entradas digitales del 
 
 La herramienta `lijatool` quedó con TCP `[41.4053, -0.941058, 152.516]`, orientación `[1,0,0,0]` y carga de 1 kg. El módulo `TCP_lijatool2` guarda las cuatro poses del robot con orientaciones diferentes (`pTCP_Point1` a `pTCP_Point4`), tal como exige el método: la punta de la herramienta se lleva al mismo punto fijo desde cuatro orientaciones y el controlador calcula la posición del TCP.
 
+
+<video src="Imagenes/Calibracion.mp4" controls width="100%">
+</video>
+
 ### 3.3 Herramienta: RobotStudio frente a calibración con el robot real
 
 La comparación se hace sobre los datos de `tooldata` de cada herramienta. Las posiciones del TCP están expresadas respecto a la brida del robot (`tool0`), por lo que son comparables entre sí.
