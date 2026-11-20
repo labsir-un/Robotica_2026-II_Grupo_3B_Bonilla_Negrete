@@ -1,6 +1,19 @@
 from robodk.robolink import *    # API para comunicarte con RoboDK
 from robodk.robomath import *    # Funciones matemáticas
 import math
+from matplotlib.textpath import TextPath
+
+#fp = FontProperties(family="Helvetica", style="italic")
+Lijaman = TextPath((-60, -40), "LIJAMAN", size=30)
+x_lij,y_lij = Lijaman.vertices.T
+
+Samuel = TextPath((-60, -70), "SAMUEL", size=30)
+x_sam,y_sam = Samuel.vertices.T
+
+#path2 = TextPath((0, 0), r"$\frac{1}{2}$", size=12, usetex=True)
+
+# Crear patch con el path
+#patch = PathPatch(path2, ec="white", fc="black", lw=3)
 
 #------------------------------------------------
 # 1) Conexión a RoboDK e inicialización
@@ -37,14 +50,14 @@ robot.setPoseFrame(frame)
 robot.setPoseTool(robot.PoseTool())
 
 # Ajustes de velocidad y blending
-robot.setSpeed(300)   # mm/s - Ajusta según necesites
+robot.setSpeed(100)   # mm/s - Ajusta según necesites
 robot.setRounding(5)  # blending (radio de curvatura)
 
 #------------------------------------------------
 # 3) Parámetros de la figura (rosa polar)
 #------------------------------------------------
-num_points = 720       # Cuántos puntos muestreamos (mayor = más suave)
-A = 150               # Amplitud (300 mm = radio máximo)
+num_points = 200       # Cuántos puntos muestreamos (mayor = más suave)
+A = 100               # Amplitud (300 mm = radio máximo)
 # Figura: r=cos(cθ)sin(bθ)+d; d = 1.5,c = 2 recomendado
 b = 5
 c = 2
@@ -90,6 +103,14 @@ for i in range(num_points+1):
 
     # Movemos linealmente (MoveL) en el plano del Frame
     robot.MoveJ(transl(x, y, z_surface))
+
+for i in range(len(x_lij+1)):
+    t = i/len(x_lij)
+    robot.MoveL(transl(y_lij[i],x_lij[i], z_surface))
+    
+for i in range(len(x_sam+1)):
+    t = i/len(x_sam)
+    robot.MoveL(transl(y_sam[i],x_sam[i], z_surface))
 
 # Al terminar, subimos de nuevo para no chocar
 robot.MoveL(transl(x, y, z_surface - z_safe))
