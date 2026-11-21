@@ -4,6 +4,8 @@
 
 **Fecha de la práctica:** [11/11/2026]
 
+> Plantilla de informe basada en las tareas y los requerimientos de la guía. Reemplazar los campos entre corchetes con datos verificados, resultados y evidencias de la práctica. Las rutas del apartado de anexos son propuestas; enlazar los archivos cuando se agreguen al repositorio.
+
 ## Objetivo
 
 Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Motoman y diseñar, simular y ejecutar una trayectoria polar desde RoboDK con el manipulador físico controlado desde el PC.
@@ -21,100 +23,259 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 9. [Trayectoria polar y código anexo](#9-trayectoria-polar-y-código-anexo)
 10. [Videos de simulación e implementación física](#10-videos-de-simulación-e-implementación-física)
 
-## 1. Comparación técnica de los manipuladores
+## 1. Comparación técnica de los manipuladores: Motoman MH6 vs ABB IRB 140
 
-Indicar la variante exacta de cada robot y las fuentes consultadas. Usar las mismas unidades y condiciones para comparar sus características.
+A continuación se presenta la comparación de las características técnicas de los dos robots industriales Motoman MH6 vs ABB IRB 140.
 
-| Característica | Motoman MH6 | ABB IRB140 | Fuente / observación |
-|---|---|---|---|
-| Variante y controlador | [Completar] | [Completar] | [Referencia] |
-| Carga máxima (kg) | [Completar] | [Completar] | [Referencia] |
-| Alcance máximo (mm) | [Completar] | [Completar] | [Referencia] |
-| Número de grados de libertad | [Completar] | [Completar] | [Referencia] |
-| Tipo de articulaciones | [Completar] | [Completar] | [Referencia] |
-| Repetibilidad (mm) | [Completar] | [Completar] | [Referencia] |
-| Masa del manipulador (kg) | [Completar] | [Completar] | [Referencia] |
-| Opciones de montaje | [Completar] | [Completar] | [Referencia] |
-| Aplicaciones típicas | [Completar] | [Completar] | [Referencia] |
+### Características generales
 
-### Rangos y velocidades articulares
-
-| Eje equivalente | Rango MH6 (°) | Velocidad máxima MH6 (°/s) | Rango IRB140 (°) | Velocidad máxima IRB140 (°/s) |
-|---|---|---|---|---|
-| 1 / S | [Completar] | [Completar] | [Completar] | [Completar] |
-| 2 / L | [Completar] | [Completar] | [Completar] | [Completar] |
-| 3 / U | [Completar] | [Completar] | [Completar] | [Completar] |
-| 4 / R | [Completar] | [Completar] | [Completar] | [Completar] |
-| 5 / B | [Completar] | [Completar] | [Completar] | [Completar] |
-| 6 / T | [Completar] | [Completar] | [Completar] | [Completar] |
-
-**Análisis:** [Explicar qué diferencias afectan la selección del robot para la práctica y para otras aplicaciones. Distinguir la velocidad máxima de ficha técnica de la velocidad usada en el laboratorio.]
-
-## 2. Configuraciones home1 y home2
-
-**Definición en la celda utilizada:** [Explicar qué representan home1 y home2 y cómo se consultaron. No asumir valores a partir del nombre de la configuración.]
-
-| Articulación del MH6 | Posición en home1 (°) | Posición en home2 (°) |
+| Característica | Motoman MH6 | ABB IRB 140 |
 |---|---|---|
-| S | [Completar] | [Completar] |
-| L | [Completar] | [Completar] |
-| U | [Completar] | [Completar] |
-| R | [Completar] | [Completar] |
-| B | [Completar] | [Completar] |
-| T | [Completar] | [Completar] |
+| **Fabricante** | Yaskawa Motoman (Japón) | ABB Robotics (Suiza/Suecia) |
+| **Tipo** | Articulado vertical | Articulado vertical |
+| **Carga máxima (payload)** | 6 kg | 6 kg |
+| **Alcance máximo** | 1422 mm | 810 mm |
+| **Grados de libertad** | 6 | 6 |
+| **Repetibilidad** | ±0,08 mm | ±0,03 mm |
+| **Peso del robot** | ≈ 130 kg | ≈ 98 kg |
+| **Controlador** | DX100 / DX200 | IRC5 |
+| **Lenguaje de programación** | PYTHON (RoboDK) | RAPID |
+| **Montaje** | Suelo, pared, techo | Suelo, pared, invertido, inclinado |
+| **Protección** | IP54 (muñeca IP67) | IP67 |
+| **Aplicaciones típicas** | Soldadura por arco, manipulación, ensamblaje, dispensado, atención de máquinas | Soldadura por arco, ensamblaje, manipulación, atención de máquinas, empaquetado, limpieza/pintura, desbarbado |
 
-**Evidencias:** [Agregar fotografías o capturas identificadas de ambas configuraciones y de sus valores articulares.]
+### Rango de movimiento por eje
 
-| Criterio | home1 | home2 |
+| Eje | MH6 | IRB 140 |
 |---|---|---|
-| Separación respecto a obstáculos y mesa | [Completar] | [Completar] |
-| Facilidad de acceso a la trayectoria | [Completar] | [Completar] |
-| Proximidad a límites articulares o singularidades | [Completar] | [Completar] |
-| Utilidad como posición de inicio y retorno | [Completar] | [Completar] |
+| Eje 1 (base) | ±170° | ±180° |
+| Eje 2 (hombro) | +155° / −90° | +110° / −90° |
+| Eje 3 (codo) | +250° / −175° | +50° / −230° |
+| Eje 4 (antebrazo) | ±180° | ±200° |
+| Eje 5 (muñeca) | +225° / −45° | ±115° |
+| Eje 6 (brida) | ±360° | ±400° |
 
-**¿Cuál posición es mejor y por qué?** [Elegir para las condiciones de esta práctica y justificar con los valores, las evidencias y los criterios anteriores.]
+### Velocidad máxima por eje
 
-## 3. Procedimiento de movimientos manuales
+| Eje | MH6 | IRB 140 |
+|---|---|---|
+| Eje 1 | 220 °/s | 200 °/s |
+| Eje 2 | 200 °/s | 200 °/s |
+| Eje 3 | 220 °/s | 260 °/s |
+| Eje 4 | 410 °/s | 360 °/s |
+| Eje 5 | 410 °/s | 360 °/s |
+| Eje 6 | 610 °/s | 450 °/s |
 
-**Equipo utilizado:** [Modelo del controlador y del pendant; herramienta y TCP activos.]
+### Análisis
 
-**Condiciones previas:** [Registrar modo de operación, habilitación requerida, zona despejada y velocidad inicial según las instrucciones del laboratorio.]
+- **Alcance:** el Motoman MH6 ofrece un volumen de trabajo mucho mayor (1422 mm frente a 810 mm), ideal para celdas amplias o piezas grandes.
+- **Precisión:** el IRB 140 es más preciso (±0,03 mm vs ±0,08 mm), útil en ensamblaje fino y tareas de alta exactitud.
+- **Compacidad:** el IRB 140 es más ligero y compacto, con protección IP67 en todo el robot, lo que facilita su uso en espacios reducidos y entornos exigentes.
+- **Carga:** ambos manejan 6 kg, por lo que la elección depende del alcance, la precisión y el ecosistema (controlador y software).
+- **Programación:** el MH6 usa PYTHON; el IRB 140 usa RAPID (IRC5).
 
-### 3.1. Movimiento por articulaciones
+## Configuraciones Home 1 y Home 2 del Motoman MH6
 
-| Paso | Acción y tecla / menú utilizado | Indicador en pantalla | Resultado observado |
-|---|---|---|---|
-| 1 | [Seleccionar el modo de operación requerido] | [Completar] | [Completar] |
-| 2 | [Seleccionar el sistema de movimiento articular] | [Completar] | [Completar] |
-| 3 | [Seleccionar la velocidad manual] | [Completar] | [Completar] |
-| 4 | [Habilitar y mover una articulación en ambos sentidos; indicar teclas] | [Completar] | [Completar] |
-| 5 | [Detener el movimiento y registrar la posición] | [Completar] | [Completar] |
+El controlador del Motoman MH6 permite definir posiciones de referencia (*home*). Aquí se describen dos: **Home 1** (posición por defecto de fábrica) y **Home 2** (posición con los encoders en cero).
 
-### 3.2. Cambio a movimiento cartesiano
+---
 
-1. [Indicar la tecla o secuencia para cambiar del modo articular al cartesiano.]
-2. [Indicar cómo seleccionar y verificar el marco de referencia: base, herramienta o usuario, según lo utilizado.]
-3. [Indicar cómo verificar la herramienta / TCP activos.]
-4. [Describir la habilitación y la ejecución del movimiento.]
+### Home 1: posición por defecto de fábrica
 
-### 3.3. Traslaciones y rotaciones
+El Home 1 es la posición de origen con la que el robot se entrega de fábrica. El brazo queda plegado y compacto, lo que facilita su transporte y almacenamiento.
 
-| Movimiento | Marco utilizado | Tecla / combinación positiva | Tecla / combinación negativa | Resultado observado |
-|---|---|---|---|---|
-| Traslación en X | [Completar] | [Completar] | [Completar] | [Completar] |
-| Traslación en Y | [Completar] | [Completar] | [Completar] | [Completar] |
-| Traslación en Z | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de X | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de Y | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de Z | [Completar] | [Completar] | [Completar] | [Completar] |
+<table>
+  <tr>
+    <td align="center"><img src="imagenes/home1_pendant.jpeg" width="300"><br><em>Pendant: WORK HOME POSITION</em></td>
+    <td align="center"><img src="imagenes/home1_robot.jpeg" width="450"><br><em>MH6 en la posición Home 1</em></td>
+  </tr>
+</table>
 
-**Evidencias:** [Insertar capturas del sistema de coordenadas seleccionado y fotografías o video de los movimientos. Explicar las etiquetas de orientación mostradas por el controlador.]
+**Posición de cada articulación en Home 1**
+
+| Articulación | Eje | ORIGIN (pulsos) | CURRENT (pulsos) |
+|:---:|:---:|---:|---:|
+| Base (giro) | S | 0 | 0 |
+| Hombro | L | −115290 | −115290 |
+| Codo | U | −111622 | −111622 |
+| Antebrazo (giro) | R | 1 | 1 |
+| Muñeca (flexión) | B | 42647 | 42647 |
+| Brida (giro) | T | 1392 | 1392 |
+
+---
+
+### Home 2: posición con los encoders en cero
+
+En el Home 2 (*Second Home Position*) los encoders de todos los servomotores están en (o muy cerca de) cero. El brazo queda extendido verticalmente, lo que facilita el trabajo con el robot: sirve como referencia clara para calibrar, programar trayectorias y verificar cada eje.
+
+<table>
+  <tr>
+    <td align="center"><img src="imagenes/home2_pendant.jpeg" width="300"><br><em>Pendant: SECOND HOME POS</em></td>
+    <td align="center"><img src="imagenes/home2_robot.jpeg" width="450"><br><em>MH6 en la posición Home 2</em></td>
+  </tr>
+</table>
+
+**Posición de cada articulación en Home 2**
+
+| Articulación | Eje | SPECIFIED (pulsos) | CURRENT (pulsos) | DIFFERENCE |
+|:---:|:---:|---:|---:|---:|
+| Base (giro) | S | 0 | 0 | 0 |
+| Hombro | L | 2037 | 2037 | 0 |
+| Codo | U | 2359 | 2359 | 0 |
+| Antebrazo (giro) | R | 0 | 0 | 0 |
+| Muñeca (flexión) | B | −121 | −121 | 0 |
+| Brida (giro) | T | 1392 | 1392 | 0 |
+
+> **Nota:** los valores  de las articulaciones están en pulsos de encoder. En el Home 2 son cercanos a cero, no exactamente cero, por pequeñas compensaciones de calibración.
+
+---
+
+### Comparación
+
+| Aspecto | Home 1 | Home 2 |
+|---|---|---|
+| **Definición** | Posición por defecto de fábrica | Posición con encoders en cero |
+| **Postura del brazo** | Plegado y compacto | Extendido verticalmente |
+| **Uso principal** | Transporte y almacenamiento | Trabajo, calibración y programación |
+| **Valores de los ejes** | Altos (±100 000 pulsos en L y U) | Cercanos a cero |
+
+### ¿Cuál posición es mejor?
+
+Para trabajar con el robot, el Home 2 es mejor:
+
+1. **Referencia clara:** con los encoders en cero, cada eje tiene un punto de partida inequívoco.
+2. **Facilidad de programación:** la postura extendida es intuitiva para planificar trayectorias.
+3. **Mayor visibilidad y acceso:** el brazo extendido deja libre el espacio y permite inspeccionar las articulaciones.
+4. **Menor riesgo de error:** los valores cercanos a cero son fáciles de leer y comparar.
+
+El Home 1 es mejor para transportar o guardar el robot por su postura compacta. En conclusión: Home 1 es la posición de entrega y transporte; Home 2 es la de trabajo y referencia.
+
+## Procedimiento para realizar movimientos manuales (Motoman MH6 – Controlador DX100)
+
+El movimiento manual (*jog*) se realiza desde el teach pendant del DX100. Permite mover el manipulador de dos formas principales: por articulaciones (cada eje por separado) o en coordenadas cartesianas (el efector final se traslada y rota en los ejes X, Y, Z).
+
+### 1. Elementos del pendant que se utilizan
+
+<p align="center">
+  <img src="imagenes/dx100_teclas_principales.png" width="500" alt="Partes más utilizadas del pendant">
+</p>
+
+| Elemento | Función |
+|---|---|
+| **Selector de modo (MODE)** | Es una llave que permine la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
+| **SERVO ON READY** | Habilita la alimentación de los servomotores. |
+| **Enable switch (hombre muerto)** | Interruptor de 3 posiciones en la parte trasera del pendant; al apretarlo suavemente se energizan los servos. |
+| **COORD** | Cambia el sistema de coordenadas de movimiento manual. |
+| **Teclas de ejes** | Mueven cada eje o dirección (S, L, U, R, B, T / X, Y, Z). |
+| **Paro de emergencia** | Corta la energía de los servos en cualquier momento. |
+
+### 2. Preparación y activación de los servos
+
+Antes de mover el robot, hay que verificar que no haya personas ni obstáculos dentro de su espacio de trabajo y ten siempre a la mano el paro de emergencia.
+
+1. Girar el selector de modo a la posición TEACH.
+2. Liberar el paro de emergencia (gíralo en el sentido de la flecha).
+3. Presionar [SERVO ON READY]. La luz *SERVO ON* comenzará a parpadear.
+4. Apretar suavemente el Enable switch de la parte trasera del pendant. La luz *SERVO ON* quedará encendida fija y se escuchará liberarse los frenos de los motores.
+5. Mientras mantengas el Enable switch en su posición intermedia, el robot puede moverse con las teclas de ejes.
+
+<p align="center">
+  <img src="imagenes/activacion_servos.png" width="350" alt="Enable switch del pendant">
+</p>
+
+Si se suelta el Enable switch, se aprieta a fondo, los servos se apagan inmediatamente. Para volver a activarlos, hay que repetir los pasos 3 y 4.
+
+### 3. Selección del sistema de coordenadas
+
+La tecla [COORD] cambia entre los sistemas de coordenadas disponibles. Cada pulsación pasa al siguiente, y el icono de la pantalla muestra el modo activo.
+
+<p align="center">
+  <img src="imagenes/seleccion_coordenadas.png" width="500" alt="Selección de coordenadas con la tecla COORD">
+</p>
+
+| Icono | Sistema | Descripción |
+|---|---|---|
+| Joint | **Articulaciones** | Cada tecla mueve un eje individual del robot. |
+| Cartesian | **Cartesiano** | El TCP se mueve en líneas rectas X, Y, Z respecto a la base del robot. |
+| Cylindrical | **Cilíndrico** | Movimiento en coordenadas cilíndricas (giro, radio y altura). |
+| Tool | **Herramienta** | Los ejes X, Y, Z están fijos a la herramienta y se mueven con ella. |
+| User | **Usuario** | Los ejes se definen respecto a un sistema creado por el usuario. |
+
+### 4. Movimiento por articulaciones (modo Joint)
+
+Para pasar a este modo, presiona [COORD] hasta que aparezca el icono de Joint en la pantalla. Cada par de teclas mueve un eje del robot:
+
+<p align="center">
+  <img src="imagenes/movimiento_articulaciones.png" width="650" alt="Movimiento de articulaciones del MH6">
+</p>
+
+| Eje | Articulación | Tecla − | Tecla + |
+|:---:|---|:---:|:---:|
+| **S** | Base (giro) | `X-/S-` | `X+/S+` |
+| **L** | Hombro | `Y-/L-` | `Y+/L+` |
+| **U** | Codo | `Z-/U-` | `Z+/U+` |
+| **R** | Antebrazo (giro) | `X-/R-` | `X+/R+` |
+| **B** | Muñeca (flexión) | `Y-/B-` | `Y+/B+` |
+| **T** | Brida (giro) | `Z-/T-` | `Z+/T+` |
+
+Pasos:
+
+1. Activa los servos (sección 2).
+2. Presiona [COORD] hasta seleccionar Joint.
+3. Mantén apretado el Enable switch y mantén presionada la tecla del eje y sentido deseado: el eje se mueve mientras la tecla esté presionada.
+4. Suelta la tecla para detener el movimiento.
+
+### 5. Movimiento cartesiano: traslaciones y rotaciones en X, Y, Z
+
+Presiona [COORD] hasta que aparezca el icono de Cartesian. Las mismas teclas ahora mueven el robot en el espacio de trabajo, en lugar de mover cada articulación:
+
+<p align="center">
+  <img src="imagenes/movimiento_cartesiano.png" width="600" alt="Movimiento en el espacio de trabajo (X, Y, Z)">
+</p>
+
+| Movimiento | Tecla − | Tecla + | Efecto |
+|---|:---:|:---:|---|
+| **Traslación en X** | `X-` | `X+` | El TCP se mueve a lo largo del eje X. |
+| **Traslación en Y** | `Y-` | `Y+` | El TCP se mueve a lo largo del eje Y. |
+| **Traslación en Z** | `Z-` | `Z+` | El TCP sube o baja a lo largo del eje Z. |
+| **Rotación sobre X** | `X-` (derecha) | `X+` (derecha) | La herramienta gira alrededor del eje X. |
+| **Rotación sobre Y** | `Y-` (derecha) | `Y+` (derecha) | La herramienta gira alrededor del eje Y. |
+| **Rotación sobre Z** | `Z-` (derecha) | `Z+` (derecha) | La herramienta gira alrededor del eje Z. |
+
+Pasos:
+
+1. Activa los servos (sección 2).
+2. Presiona [COORD] hasta seleccionar Cartesian.
+3. Con el Enable switch apretado, mantén presionada la tecla del eje (X, Y o Z) y el sentido (+ o −) para trasladar, o la tecla del grupo derecho para rotar la herramienta.
+4. Suelta la tecla para detener el movimiento.
+
+### 6. Movimiento en coordenadas de herramienta
+
+En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el movimiento es siempre relativo a su orientación. Es útil para acercar o alejar la herramienta de una pieza sin importar cómo esté inclinada.
+
+<p align="center">
+  <img src="imagenes/movimiento_herramienta.png" width="600" alt="Coordenadas de herramienta">
+</p>
+
+### 7. Resumen del procedimiento
+
+```
+1. MODE → TEACH
+2. Liberar paro de emergencia
+3. SERVO ON READY (parpadea)
+4. Enable switch apretado suavemente (luz fija)
+5. COORD → elegir Joint / Cartesian / Cylindrical / Tool / User
+6. Mantener tecla de eje → el robot se mueve
+7. Soltar tecla → el robot se detiene
+```
+
+
 
 ## 4. Niveles de velocidad manual
 
 Registrar los niveles disponibles en el controlador utilizado y su indicación real en pantalla.
 
-| Nivel / nombre mostrado | Valor y unidad,  si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
+| Nivel / nombre mostrado | Valor y unidad, si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
 |---|---|---|---|---|
 | [Nivel 1] | [Completar] | [Completar] | [Completar] | [Completar] |
 | [Nivel 2] | [Completar] | [Completar] | [Completar] | [Completar] |
@@ -362,6 +523,8 @@ Ejecución física de la trayectoria en el Motoman MH6 controlado desde el PC: a
  
 ## Referencias
 
+- Yaskawa. *DX100 Operator's Manual*, sección 2.2 "General Operations".
+- Ramírez, R., Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia (diapositivas "Programación y operación básica DX100").
 - Guía del Laboratorio No. 02: PDF incluido en esta carpeta del repositorio.
 - [Ficha técnica del Motoman MH6: título, fabricante, enlace y página consultada.]
 - [Ficha técnica del ABB IRB140: título, fabricante, enlace y página consultada.]
