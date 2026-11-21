@@ -4,8 +4,6 @@
 
 **Fecha de la práctica:** [11/11/2026]
 
-> Plantilla de informe basada en las tareas y los requerimientos de la guía. Reemplazar los campos entre corchetes con datos verificados, resultados y evidencias de la práctica. Las rutas del apartado de anexos son propuestas; enlazar los archivos cuando se agreguen al repositorio.
-
 ## Objetivo
 
 Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Motoman y diseñar, simular y ejecutar una trayectoria polar desde RoboDK con el manipulador físico controlado desde el PC.
@@ -116,7 +114,7 @@ Indicar la variante exacta de cada robot y las fuentes consultadas. Usar las mis
 
 Registrar los niveles disponibles en el controlador utilizado y su indicación real en pantalla.
 
-| Nivel / nombre mostrado | Valor y unidad, si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
+| Nivel / nombre mostrado | Valor y unidad,  si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
 |---|---|---|---|---|
 | [Nivel 1] | [Completar] | [Completar] | [Completar] | [Completar] |
 | [Nivel 2] | [Completar] | [Completar] | [Completar] | [Completar] |
@@ -130,14 +128,66 @@ Registrar los niveles disponibles en el controlador utilizado y su indicación r
 
 ### 5.1. Funcionalidades principales
 
-| Funcionalidad | Explicación | Uso o evidencia en esta práctica |
+Para esta práctica se partió de una estación de ejemplo suministrada por el docente, que ya contenía el manipulador, la herramienta, las referencias y la geometría del entorno. El trabajo del equipo se concentró en programar la trayectoria mediante Python y definir el target de inicio y retorno. A continuación se describen las funcionalidades más relevantes y cómo se relacionaron con el laboratorio.
+
+#### Biblioteca de robots y herramientas
+
+RoboDK dispone de una biblioteca de modelos de robots y herramientas que facilita la construcción de estaciones de trabajo virtuales. Permite incorporar un manipulador compatible y los elementos necesarios para representar su aplicación. En este laboratorio no se seleccionaron ni descargaron estos componentes desde la biblioteca, ya que estaban incluidos en el archivo inicial del docente.
+
+#### Sistemas de referencia y definición de herramienta
+
+Los sistemas de referencia permiten expresar la posición y orientación de los puntos respecto a una base, una superficie de trabajo o una herramienta. Esto resulta especialmente útil para dibujar sobre un plano inclinado: la trayectoria puede definirse en las coordenadas locales del plano y ubicarse en la estación mediante la transformación de ese marco.
+
+En la estación suministrada se identificaron las siguientes referencias:
+
+| Referencia | Función en la estación |
+|---|---|
+| `Motoman MH6 Base` | Marco asociado a la base del manipulador, que sirve como referencia para ubicar el robot en la estación. |
+| `Frame_from_Target1` | Marco asociado al plano inclinado donde se dibuja la figura. Permite definir el recorrido con respecto a la superficie de trabajo. |
+| `Ventosas` | Herramienta con su marco de TCP (*Tool Center Point*), que define el punto y la orientación de trabajo respecto a la brida del robot. |
+| `Motoman MH6 (brida de montaje)` | Marco de la brida del robot (*flange*): referencia del extremo mecánico del manipulador donde se monta la herramienta. |
+
+Aunque todos representan sistemas de coordenadas, no todos son elementos de tipo *Frame* en el árbol de RoboDK: el TCP pertenece a la herramienta y la referencia de la brida pertenece al robot. La transformación entre ambos describe el desplazamiento y la orientación de la herramienta montada.
+
+El equipo utilizó estas referencias ya configuradas por el docente. No creó ni calibró nuevos marcos; el script selecciona el marco de trabajo mediante `setPoseFrame()` y conserva la definición de herramienta mediante `setPoseTool(robot.PoseTool())`.
+
+#### Targets o posiciones objetivo
+
+Los *targets* permiten guardar posiciones objetivo del robot, mediante valores articulares o mediante una pose cartesiana de la herramienta respecto a una referencia. Pueden reutilizarse en distintas instrucciones del programa.
+
+El único target creado por el equipo como elemento independiente en el árbol de la estación fue `Home`. Corresponde a **home1, la configuración de trabajo**, y se utilizó tanto al inicio como al final de la trayectoria; no corresponde a la configuración de transporte. En el script se obtiene con `RDK.Item("Home", ITEM_TYPE_TARGET)` y se alcanza mediante `robot.MoveJ(T_H)`. Los demás puntos del recorrido se calculan desde Python, sin crear un target independiente en el árbol para cada uno.
+
+#### Ejecución de scripts de Python
+
+La integración con Python fue la funcionalidad central del laboratorio. La API de RoboDK permite acceder a los elementos de la estación, seleccionar el robot, establecer el marco y la herramienta activos, calcular poses y ordenar movimientos desde un script. Así, la trayectoria se genera a partir de expresiones matemáticas y secuencias de puntos, en lugar de enseñar cada posición manualmente en la interfaz gráfica.
+
+En [FiguraPolar.py](FiguraPolar.py), el equipo utiliza `Robolink()` para acceder a RoboDK y programa la secuencia de inicio en Home, aproximación, recorrido, retiro y retorno. Esta integración permite modificar los parámetros de la figura y repetir la simulación. La ejecución sobre el manipulador físico requiere además la configuración de comunicación y la modalidad de ejecución descritas en la sección 5.2.
+
+#### Incorporación de modelos del entorno
+
+RoboDK permite incorporar geometrías CAD para representar herramientas, piezas y otros elementos de la celda. La estación del docente ya incluía una caja con un plano inclinado que sirvió como referencia visual de la superficie sobre la que se dibujaría la figura. El equipo utilizó ese modelo existente; no realizó su importación y no se confirmó el formato original del archivo.
+
+La geometría facilita interpretar la ubicación del recorrido, mientras que el marco `Frame_from_Target1` define la referencia de coordenadas utilizada para programarlo. Contar con el modelo visual por sí solo no demuestra que se haya realizado una comprobación de colisiones.
+
+#### Instrucciones de movimiento desde Python
+
+La API ofrece movimientos articulares, lineales y circulares. Su diferencia principal es cómo se recorre el espacio entre las posiciones indicadas:
+
+| Instrucción | Función | Relación con la práctica |
 |---|---|---|
-| Modelado de la estación y selección del robot | [Completar] | [Completar] |
-| Definición de herramienta y marcos de referencia | [Completar] | [Completar] |
-| Programación y simulación de trayectorias | [Completar] | [Completar] |
-| Comprobación de alcance y colisiones | [Completar] | [Completar] |
-| Generación de programas mediante postprocesador | [Completar] | [Completar] |
-| Comunicación y ejecución con el robot | [Completar] | [Completar] |
+| `MoveJ` | Realiza un movimiento interpolado en articulaciones. El recorrido del TCP entre el inicio y el destino no tiene por qué ser una línea recta. | Se utilizó para ir a `Home` y en otros desplazamientos del script. En la versión adjunta también aparece dentro del bucle que recorre los puntos de la figura polar. |
+| `MoveL` | Desplaza el TCP siguiendo un segmento recto hasta la pose de destino. | Se utilizó en la aproximación a la superficie, los trazos de los nombres y el retiro, según el código adjunto. |
+| `MoveC` | Define un movimiento circular desde la posición actual, pasando por una posición intermedia y terminando en una posición final. | Es una opción relevante para programar arcos. Aunque se mencionó entre los movimientos utilizados durante la práctica, no aparece en la versión de `FiguraPolar.py` adjunta al repositorio. |
+
+Estas instrucciones se invocaron desde el código, en lugar de añadirse manualmente como instrucciones de un programa en la interfaz. Calcular los puntos de una curva polar no determina por sí solo la interpolación entre ellos: esta depende de la instrucción de movimiento empleada.
+
+#### Pausas y velocidad de simulación
+
+Otras funcionalidades disponibles, que no se utilizaron en esta práctica, son las pausas y el ajuste de la velocidad de simulación. Una instrucción de pausa permite introducir una espera temporizada o detener el programa hasta que el usuario continúe, según su configuración. Esto puede servir para separar etapas o esperar una intervención.
+
+El control de velocidad de simulación permite acelerar o ralentizar la reproducción virtual para observar el recorrido. Este factor se distingue de la velocidad de movimiento programada para el robot: por ejemplo, el script sí utiliza `robot.setSpeed(100)` para establecer una velocidad lineal de 100 mm/s, pero no modifica el factor de velocidad de simulación.
+
+**Documentación de apoyo:** [interfaz, herramientas y referencias de RoboDK](https://robodk.com/doc/en/Interface.html), [API de Python: movimientos, herramientas y velocidad de simulación](https://robodk.com/doc/en/PythonAPI/robodk.html) e [instrucciones de programa y pausas](https://robodk.com/doc/en/PythonAPI/postprocessor.html).
 
 ### 5.2. Comunicación utilizada
 
@@ -292,14 +342,15 @@ El código completo debe estar adjunto en el repositorio. El archivo existente e
 
 ## 10. Videos de simulación e implementación física
 
-> Según la guía, los videos deben comenzar con la introducción oficial del laboratorio **LabSIR**.
+[Ver Video en YouTube](https://www.youtube.com/watch?v=6KkIvW-8XNA)
 
-| Evidencia | Enlace | Contenido y marcas de tiempo |
-|---|---|---|
-| Simulación en RoboDK | [Pegar URL] | [Mostrar estación, trayectoria polar y ejecución completa] |
-| Implementación física controlada desde el PC | [Pegar URL] | [Mostrar ejecución desde el PC y recorrido del Motoman] |
 
-Si se presenta un solo video con ambas evidencias, indicar el enlace y las marcas de tiempo de cada parte. Verificar que los enlaces puedan abrirse por el evaluador.
+En el video se muestra el diseño de una rutina que dibuja una trayectoria en coordenadas polares, su simulación y validación en RoboDK, y su ejecución física en el manipulador Motoman MH6, comandado desde el computador.
+
+Contenido:
+Simulación de la trayectoria polar en RoboDK.
+Validación de la trayectoria y definición de los puntos de aproximación.
+Ejecución física de la trayectoria en el Motoman MH6 controlado desde el PC: aproximación, trayectoria y regreso a Home.
 
 <!--
 ## Conclusiones
