@@ -25,7 +25,7 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 
 ## 1. Comparación técnica de los manipuladores: Motoman MH6 vs ABB IRB 140
 
-Indicar la variante exacta de cada robot y las fuentes consultadas. Usar las mismas unidades y condiciones para comparar sus características.
+Comparación de las características técnicas de dos robots industriales articulados de 6 ejes y 6 kg de carga.
 
 ### Características generales
 
