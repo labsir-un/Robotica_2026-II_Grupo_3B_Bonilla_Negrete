@@ -433,21 +433,138 @@ El control de velocidad de simulación permite acelerar o ralentizar la reproduc
 4. [Seleccionar la modalidad de ejecución y ejecutar la rutina validada.]
 5. [Registrar el resultado y la evidencia del control desde el PC.]
 
-## 6. Comparación entre RoboDK y RobotStudio
+## Análisis comparativo entre RoboDK y RobotStudio
 
-| Criterio | RoboDK | RobotStudio |
+RoboDK y RobotStudio son herramientas de simulación y programación fuera de línea (*offline programming*, OLP). Permiten diseñar celdas robotizadas, simular trayectorias, detectar colisiones y generar el programa del robot en un computador, sin detener la producción ni exponer el equipo real. Se diferencian en su alcance (un solo fabricante frente a múltiples marcas) y en el modo de programar.
+
+
+| Aspecto | RobotStudio | RoboDK |
 |---|---|---|
-| Fabricantes y robots compatibles | [Completar] | [Completar] |
-| Programación y lenguajes / API | [Completar] | [Completar] |
-| Simulación y relación con el controlador real | [Completar] | [Completar] |
-| Comunicación con el robot físico | [Completar] | [Completar] |
-| Herramientas de análisis y validación | [Completar] | [Completar] |
-| Licencias y funciones disponibles en la versión utilizada | [Completar] | [Completar] |
-| Ventajas | [Completar] | [Completar] |
-| Limitaciones | [Completar] | [Completar] |
-| Aplicaciones recomendadas | [Completar] | [Completar] |
+| **Desarrollador** | ABB Robotics | RoboDK Inc. |
+| **Marcas de robots** | Exclusivamente ABB | Más de 500 modelos de múltiples fabricantes (ABB, KUKA, Yaskawa/Motoman, Fanuc, Universal Robots, entre otros) |
+| **Librería de robots** | Modelos ABB incluidos con el software | Librería en la nube, con descarga de los modelos que se necesiten |
+| **Licencia** | De pago, con distintas modalidades (incluida una para universidades). Con el convenio entre la Universidad Nacional de Colombia y ABB, la licencia se puede solicitar fácilmente | De pago, con versión de evaluación |
+| **Lenguaje de programación** | RAPID | Programas gráficos por instrucciones, bloques y Python (API) |
+| **Controlador virtual** | Sí: controlador virtual idéntico al real (IRC5 / OmniCore) | No replica el controlador real: genera el programa mediante posprocesadores |
+| **Precisión de la simulación** | Muy alta para robots ABB | Buena para cinemática y trayectorias; depende del posprocesador en lo específico de cada marca |
+| **Conexión con el robot real** | Nativa con controladores ABB | Mediante controladores (*drivers*) para varias marcas |
+| **Sistema operativo** | Windows | Windows, Linux y macOS |
+| **Perfil de usuario** | Quien trabaja con robots ABB y requiere exactitud | Quien trabaja con varias marcas o necesita flexibilidad |
 
-**Interpretación del equipo:** [¿Qué representa cada herramienta para ustedes? Relacionar la comparación con la experiencia del laboratorio 1 y del laboratorio 2 y justificar en qué casos elegirían cada una. Citar las fuentes de las características técnicas.]
+### 2. Licenciamiento
+
+Ambos programas requieren licencia para su uso completo.
+
+- RobotStudio: al ser un producto de ABB, ofrece varias modalidades de licencia. En el caso de la Universidad Nacional de Colombia, el convenio con ABB permite solicitar la licencia de forma sencilla, lo que lo convierte en una opción accesible para estudiantes y docentes.
+- RoboDK: se licencia de forma comercial, con una versión de evaluación para probar el software antes de adquirirlo. Conviene consultar con el proveedor las condiciones académicas vigentes.
+
+### 3. Tipo de programación
+
+#### RobotStudio: lenguaje RAPID
+
+RAPID es el lenguaje de programación textual de los robots ABB. En RobotStudio el programa se escribe, edita y depura en un editor de código, y se prueba en el controlador virtual.
+
+```rapid
+MoveJ p10, v1000, z50, tool0;
+MoveL p20, v500, fine, tool0;
+```
+
+| Ventajas | Inconvenientes |
+|---|---|
+| Control total sobre el comportamiento del robot (comunicaciones, manejo de errores, lógica compleja) | Curva de aprendizaje mayor: hay que conocer la sintaxis y las estructuras de RAPID |
+| El código es el mismo que se ejecuta en el robot real, sin conversiones | Solo sirve para robots ABB; no se reutiliza en otras marcas |
+| Permite validar el programa con el controlador virtual antes de llevarlo al robot | Programar a mano trayectorias largas o complejas es más lento |
+| Es el estándar para aplicaciones industriales en ABB | Requiere conocer bien el modelo de datos del robot (herramientas, sistemas de coordenadas, datos de carga) |
+
+#### RoboDK: instrucciones, bloques y Python
+
+RoboDK permite crear programas de forma gráfica, agregando instrucciones de movimiento (`MoveJ`, `MoveL`), de E/S y de control sobre una lista de pasos. También se pueden escribir scripts en Python que controlan la estación de trabajo mediante su API.
+
+```python
+from robodk import robolink
+
+RDK = robolink.Robolink()
+robot = RDK.Item('', robolink.ITEM_TYPE_ROBOT)
+target1 = RDK.Item('Target 1')
+target2 = RDK.Item('Target 2')
+
+robot.MoveJ(target1)
+robot.MoveL(target2)
+```
+
+| Ventajas | Inconvenientes |
+|---|---|
+| Programación accesible: por instrucciones y bloques, sin necesidad de dominar el lenguaje de cada robot | El programa se traduce al lenguaje del robot mediante un posprocesador, por lo que puede requerir ajustes |
+| Python facilita automatizar tareas, procesar datos y generar trayectorias desde CAD o desde código | Algunas instrucciones muy específicas de un controlador pueden no estar soportadas o requerir personalizar el posprocesador |
+| Un mismo programa se puede adaptar a robots de diferentes marcas | No simula el comportamiento completo del controlador (señales, seguridad, lógica propia del fabricante) |
+| Python permite integrar visión artificial, sensores y otras librerías | Para aplicaciones avanzadas se necesita conocimiento de Python y de la API de RoboDK |
+
+### 4. Compatibilidad con robots
+
+RobotStudio trabaja específicamente con robots ABB. Esto le permite un nivel de integración muy alto con ese fabricante, pero lo limita a su ecosistema.
+
+RoboDK trabaja con una gama extensa de robots de diferentes marcas. Los modelos están disponibles en una librería en la nube, de la cual se descargan los que se necesiten para la celda.
+
+Para el caso de este proyecto, el Motoman MH6 solo puede trabajarse con RoboDK, ya que RobotStudio no admite robots de otras marcas.
+
+### 5. RobotStudio: ventajas, inconvenientes y aplicaciones
+
+Ventajas:
+
+- Controlador virtual idéntico al real, que permite probar el programa RAPID con la lógica y los tiempos reales del robot.
+- Integración total con los controladores ABB, incluida la conexión con el robot físico.
+- Paquetes especializados por proceso (por ejemplo, soldadura por arco) que automatizan la generación de trayectorias.
+- Simulación muy fiel, útil para validar una celda antes de construirla o modificarla.
+- Licencia accesible para la comunidad universitaria gracias al convenio con ABB.
+
+Inconvenientes:
+
+- Solo funciona con robots ABB.
+- Requiere aprender RAPID.
+- Solo está disponible para Windows y suele necesitar un equipo con buenas prestaciones.
+- Los paquetes de procesos específicos pueden implicar licencias adicionales.
+
+Aplicaciones:
+
+- Puesta en marcha virtual y validación de celdas robotizadas con robots ABB.
+- Programación fuera de línea de soldadura, paletizado, manipulación y ensamblaje.
+- Formación y prácticas en programación de robots ABB.
+- Optimización de trayectorias, tiempos de ciclo y alcance antes de implementar en planta.
+
+### 6. RoboDK: ventajas, inconvenientes y aplicaciones
+
+Ventajas:
+
+- Soporta múltiples marcas y más de 500 modelos de robots, con librería en la nube.
+- Programación flexible: instrucciones, bloques y Python.
+- Facilita trabajar con CAD/CAM, por ejemplo, para generar trayectorias a partir de piezas y superficies.
+- Disponible en Windows, Linux y macOS.
+- Útil para comparar robots y elegir el más adecuado para una aplicación.
+
+Inconvenientes:
+
+- No reproduce el comportamiento completo del controlador del fabricante.
+- La calidad del código generado depende del posprocesador de cada marca.
+- Para conectarse a algunos robots reales se requieren controladores o interfaces del fabricante.
+- Es menos exacto que RobotStudio en lo específico de los robots ABB.
+
+Aplicaciones:
+
+- Celdas con robots de distintas marcas o con cambio frecuente de modelo.
+- Mecanizado, impresión 3D, soldadura, pulido y manipulación con trayectorias generadas desde CAD.
+- Investigación, docencia y prototipado, donde se prueban distintos robots con un mismo entorno.
+- Automatización con Python: calibración, integración con visión y generación automática de programas.
+
+### 7. ¿Cuándo usar cada una?
+
+| Situación | Herramienta recomendada |
+|---|---|
+| Se trabaja únicamente con robots ABB y se necesita la máxima fidelidad | RobotStudio |
+| Se necesita validar lógica, señales de E/S y tiempos del controlador | RobotStudio |
+| La celda incluye robots de varias marcas (por ejemplo, ABB y Motoman) | RoboDK |
+| Se busca programar con Python o de forma gráfica, sin aprender el lenguaje de cada fabricante | RoboDK |
+| Se generan trayectorias desde modelos CAD (mecanizado, impresión 3D, soldadura) | RoboDK |
+| Se dispone de licencia académica de ABB y se trabaja con el IRB 140 | RobotStudio |
 
 ## 7. Diagrama de flujo de acciones del robot
 
