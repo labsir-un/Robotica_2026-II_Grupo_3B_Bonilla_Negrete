@@ -82,7 +82,7 @@ El controlador del Motoman MH6 permite definir posiciones de referencia (*home*)
 
 ### Home 1: posición por defecto de fábrica
 
-El **Home 1** es la posición de origen con la que el robot **se entrega de fábrica**. El brazo queda **plegado y compacto**, lo que **facilita su transporte y almacenamiento**.
+El Home 1 es la posición de origen con la que el robot se entrega de fábrica. El brazo queda plegado y compacto, lo que facilita su transporte y almacenamiento.
 
 <table>
   <tr>
@@ -106,7 +106,7 @@ El **Home 1** es la posición de origen con la que el robot **se entrega de fáb
 
 ### Home 2: posición con los encoders en cero
 
-En el **Home 2** (*Second Home Position*) **los encoders de todos los servomotores están en (o muy cerca de) cero**. El brazo queda **extendido verticalmente**, lo que **facilita el trabajo con el robot**: sirve como referencia clara para calibrar, programar trayectorias y verificar cada eje.
+En el Home 2 (*Second Home Position*) los encoders de todos los servomotores están en (o muy cerca de) cero. El brazo queda extendido verticalmente, lo que facilita el trabajo con el robot: sirve como referencia clara para calibrar, programar trayectorias y verificar cada eje.
 
 <table>
   <tr>
@@ -141,14 +141,14 @@ En el **Home 2** (*Second Home Position*) **los encoders de todos los servomotor
 
 ### ¿Cuál posición es mejor?
 
-Para **trabajar con el robot, el Home 2 es mejor**:
+Para trabajar con el robot, el Home 2 es mejor:
 
 1. **Referencia clara:** con los encoders en cero, cada eje tiene un punto de partida inequívoco.
 2. **Facilidad de programación:** la postura extendida es intuitiva para planificar trayectorias.
 3. **Mayor visibilidad y acceso:** el brazo extendido deja libre el espacio y permite inspeccionar las articulaciones.
 4. **Menor riesgo de error:** los valores cercanos a cero son fáciles de leer y comparar.
 
-El **Home 1** es mejor para **transportar o guardar** el robot por su postura compacta. En conclusión: Home 1 es la posición de **entrega y transporte**; Home 2 es la de **trabajo y referencia**.
+El Home 1 es mejor para transportar o guardar el robot por su postura compacta. En conclusión: Home 1 es la posición de entrega y transporte; Home 2 es la de trabajo y referencia.
 
 ## 3. Procedimiento de movimientos manuales
 
