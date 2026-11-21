@@ -271,19 +271,80 @@ En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el mo
 
 
 
-## 4. Niveles de velocidad manual
+## Niveles de velocidad para movimientos manuales
 
-Registrar los niveles disponibles en el controlador utilizado y su indicación real en pantalla.
+La velocidad manual determina qué tan rápido se mueve el manipulador cuando se presiona una tecla de eje en modo TEACH. El DX100 ofrece cuatro niveles, que se cambian con las teclas [FAST] y [SLOW] del pendant, y el nivel activo se muestra en todo momento en la pantalla.
 
-| Nivel / nombre mostrado | Valor y unidad, si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
-|---|---|---|---|---|
-| [Nivel 1] | [Completar] | [Completar] | [Completar] | [Completar] |
-| [Nivel 2] | [Completar] | [Completar] | [Completar] | [Completar] |
-| [Agregar los demás niveles disponibles] | [Completar] | [Completar] | [Completar] | [Completar] |
+### 1. Niveles de velocidad disponibles
 
-**Procedimiento de cambio:** [Describir paso a paso cómo aumentar y disminuir el nivel y cómo confirmar el cambio en la interfaz.]
+<p align="center">
+  <img src="imagenes/velocidad_manual.png" width="500" alt="Niveles de velocidad manual del DX100">
+</p>
 
-**Evidencia:** [Agregar una captura con el indicador de velocidad señalado. Explicar si su interpretación cambia entre movimiento articular y cartesiano.]
+| Nivel | Indicación en pantalla | Descripción | Uso recomendado |
+|---|:---:|---|---|
+| **Inching** | `INCH` | Movimiento por pasos: cada pulsación de la tecla de eje produce un desplazamiento incremental muy pequeño. | Posicionamiento fino y ajuste preciso de puntos. |
+| **Low** (baja) | `SLW` | Velocidad lenta y continua mientras se mantiene presionada la tecla. | Aproximaciones cercanas a piezas, herramientas u obstáculos. |
+| **Medium** (media) | `MED` | Velocidad intermedia. | Movimientos generales de trabajo y enseñanza de puntos. |
+| **High** (alta) | `FST` | Velocidad rápida. | Desplazamientos grandes en zonas despejadas. |
+
+Siempre se recomienda iniciar nen velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
+
+### 2. Proceso para cambiar entre niveles
+
+Los niveles se recorren de forma cíclica con las dos teclas de velocidad manual (*MANUAL SPEED*), ubicadas en el teclado del pendant:
+
+| Tecla | Efecto | Secuencia |
+|:---:|---|---|
+| **[FAST]** | Aumenta el nivel de velocidad en cada pulsación. | `INCH` → `SLW` → `MED` → `FST` |
+| **[SLOW]** | Disminuye el nivel de velocidad en cada pulsación. | `FST` → `MED` → `SLW` → `INCH` |
+
+Pasos:
+
+1. Gira el selector de modo a TEACH.
+2. Observa en el área de estado cuál es el nivel de velocidad actual.
+3. Presiona [FAST] para subir o [SLOW] para bajar un nivel por pulsación.
+4. Verifica en el área de estado que el icono corresponda al nivel deseado.
+5. Mueve el robot con las teclas de ejes a la velocidad seleccionada.
+
+El cambio de velocidad se puede hacer en cualquier momento, incluso con el robot detenido. El nuevo nivel se aplicará al siguiente movimiento.
+
+### 3. Botón [HIGH SPEED]
+
+El botón [HIGH SPEED] permite mover el robot a una velocidad alta de forma momentánea, sin cambiar el nivel configurado:
+
+- Se debe mantener presionada junto con una tecla de eje.
+- Al soltarla, el robot vuelve a moverse al nivel de velocidad seleccionado.
+- La velocidad de [HIGH SPEED] está definida previamente en el controlador.
+- No funciona cuando el nivel seleccionado es `INCH`.
+
+### 4. Identificar el nivel establecido en la interfaz
+
+El nivel de velocidad activo se muestra en el área de estado, en la parte superior derecha de la pantalla del pendant.
+
+<p align="center">
+  <img src="imagenes/areas_pantalla.png" width="600" alt="Áreas de la pantalla del pendant">
+</p>
+
+Dentro del área de estado, el icono de velocidad manual es el tercero de izquierda a derecha (indicador C en la imagen), a continuación del icono de grupo de ejes (A) y del icono del sistema de coordenadas (B):
+
+<p align="center">
+  <img src="imagenes/area_estado.png" width="600" alt="Área de estado con el indicador de velocidad manual">
+</p>
+
+| Indicador | Nombre | Qué muestra |
+|:---:|---|---|
+| A | Group operation axis | Grupo de ejes que se está moviendo (robot o ejes externos. En nuestro caso existe un eje externo.). |
+| B | Operation coordinate system | Sistema de coordenadas activo (Joint, Cartesian, etc.). |
+| **C** | **Manual speed** | **Nivel de velocidad manual: Inching, Low, Medium o High.** |
+| D | Security mode | Modo de seguridad. |
+
+El icono de velocidad cambia de apariencia según el nivel: las barras de la gráfica aumentan de altura a medida que sube la velocidad, y para el nivel Inching aparece una sola barra marcada. Cada vez que se presiona [FAST] o [SLOW], el icono se actualiza de inmediato.
+
+### Referencias
+
+- Yaskawa. *DX100 Operator's Manual*, sección 2.2.0.5 "Select Manual Speed" y sección 1.2 "Programming Pendant".
+- Ramírez, R., Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia (diapositivas "Selección de la velocidad manual" y "Área de estado").
 
 ## 5. RoboDK y comunicación con el Motoman
 
