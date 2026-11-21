@@ -19,7 +19,7 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 6. [Comparación entre RoboDK y RobotStudio](#6-comparación-entre-robodk-y-robotstudio)
 7. [Diagrama de flujo de acciones del robot](#7-diagrama-de-flujo-de-acciones-del-robot)
 8. [Plano de planta de la celda](#8-plano-de-planta-de-la-celda)
-9. [Trayectoria polar y código anexo](#9-trayectoria-polar-y-código-anexo)
+9. [Código desarrollado](#9-código-desarrollado)
 10. [Videos de simulación e implementación física](#10-videos-de-simulación-e-implementación-física)
 
 ## 1. Comparación técnica de los manipuladores: Motoman MH6 vs ABB IRB 140
@@ -666,91 +666,27 @@ La curva polar utiliza `MoveJ`, aunque su comentario en el código menciona `Mov
 
 ## 8. Plano de planta de la celda
 
-**Plano:** [Insertar una imagen de la vista superior de la distribución real de la celda.]
+### 8.1. Vista de planta
 
-El plano debe identificar los elementos presentes, incluir dimensiones o escala, unidades, leyenda y orientación de los ejes de referencia utilizados.
+![Vista de planta esquemática de la celda](Imagenes/Vista%20de%20planta.png)
 
-| Identificador en el plano | Elemento | Ubicación / dimensiones | Función |
-|---|---|---|---|
-| R1 | Motoman MH6 y base | [Completar] | [Completar] |
-| C1 | Controlador | [Completar] | [Completar] |
-| PC1 | PC con RoboDK | [Completar] | [Completar] |
-| P1 | Pendant | [Completar] | [Completar] |
-| M1 | Mesa o superficie de trabajo | [Completar] | [Completar] |
-| T1 | Herramienta y zona de trazado | [Completar] | [Completar] |
-| [Otro] | [Otros elementos presentes y delimitaciones] | [Completar] | [Completar] |
+*Distribución esquemática de la celda en vista superior, sin escala. Se identifican el manipulador sobre su eje lineal de desplazamiento, el eje externo separado, el controlador, los interruptores y la maquinaria cercana.*
 
-**Relación con la simulación:** [Explicar cómo se representaron estas ubicaciones y referencias en la estación de RoboDK.]
+Los colores permiten distinguir el manipulador y el eje externo en verde, el controlador en azul, los interruptores en rojo y la maquinaria cercana en morado. El contorno negro representa el recorrido del eje lineal sobre el que se desplaza el robot completo, rotulado en la imagen como «Octavo grado de libertad».
 
-## 9. Trayectoria polar y código anexo
+### 8.2. Vista lateral
 
-**Integrantes del equipo:** Samuel David Negrete Lancheros y Emmanuel Bonilla Mitrotti.
+![Vista lateral de la celda y articulaciones del Motoman MH6](Imagenes/RepLat.jpg)
 
-### 9.1. Definición de la trayectoria
+*Fotografía lateral anotada de la instalación. Se señalan las seis articulaciones del MH6 (S, L, U, R, B y T), el eje externo, el controlador, los interruptores y el sistema de desplazamiento lineal del robot.*
 
-**Curva seleccionada y justificación:** [Completar.]
+El manipulador MH6 tiene **seis grados de libertad rotacionales**. La instalación incorpora además un eje externo separado y un eje lineal que desplaza el robot completo, para un total de **ocho grados de libertad en el conjunto**. Esta distinción permite conservar los seis grados de libertad del robot en la comparación técnica y reconocer los movimientos adicionales disponibles en la celda.
 
-Definir la ecuación polar y su intervalo:
+## 9. Código desarrollado
 
-$$
-r = f(\theta), \qquad \theta \in [\theta_0,\theta_f]
-$$
+El programa desarrollado en Python está disponible en [FiguraPolar.py](FiguraPolar.py). Genera los puntos de la figura polar y los contornos de los textos `LIJAMAN` y `SAMUEL`, y ejecuta la secuencia de movimientos respecto a `Frame_from_Target1`, comenzando y terminando en `Home`. Los textos identifican a los integrantes del equipo: `LIJAMAN` es el apodo de Emmanuel Bonilla Mitrotti y `SAMUEL` corresponde a Samuel David Negrete Lancheros.
 
-Para una curva plana en el marco de trabajo, documentar la conversión utilizada:
-
-$$
-x = x_c + r(\theta)\cos(\theta), \qquad
-y = y_c + r(\theta)\sin(\theta), \qquad
-z = z_{\mathrm{trazo}}
-$$
-
-| Parámetro | Valor / definición |
-|---|---|
-| Función r(θ) | [Completar] |
-| Intervalo angular y unidad | [Completar] |
-| Paso angular o número de muestras | [Completar] |
-| Centro y unidades de longitud | [Completar] |
-| Marco de referencia y plano de la curva | [Completar] |
-| Altura de trazo y de aproximación / retiro | [Completar] |
-| Orientación del TCP | [Completar] |
-| Tipo de movimientos y velocidad programada | [Completar] |
-| Posiciones inicial y final | [Completar] |
-
-**Gráfica de la curva:** [Insertar gráfica o captura que permita comparar el diseño con el resultado.]
-
-### 9.2. Código y archivos anexos
-
-El código completo debe estar adjunto en el repositorio. El archivo existente es [FiguraPolar.py](FiguraPolar.py); documentar su funcionamiento y actualizar este enlace si cambia su nombre. Completar las demás rutas y convertirlas en enlaces cuando los archivos estén disponibles.
-
-| Archivo | Ruta propuesta | Contenido |
-|---|---|---|
-| Código fuente existente | [FiguraPolar.py](FiguraPolar.py) | [Describir generación de puntos y ejecución] |
-| Estación de RoboDK | `RoboDK/estacion_trayectoria_polar.rdk` | [Robot, herramienta, referencias y programa] |
-| Programa generado, si aplica | `Codigo/[archivo_generado]` | [Programa para el controlador y postprocesador utilizado] |
-| Evidencias gráficas | `Imagenes/` | [Configuraciones home, interfaz, plano y resultados] |
-| Videos locales, si se incluyen | `Video/` | [Simulación e implementación física] |
-
-**Dependencias y preparación:** [Versiones, bibliotecas, archivos requeridos y configuración de la estación.]
-
-**Cómo ejecutar la simulación:**
-
-1. [Abrir la estación y cargar el código.]
-2. [Configurar los parámetros y verificar nombres de robot, herramienta y referencia.]
-3. [Indicar cómo iniciar la simulación y qué resultado debe observarse.]
-
-**Cómo se ejecutó en el robot físico desde el PC:** [Documentar la secuencia real, la modalidad de comunicación, las verificaciones realizadas y la forma de detener la ejecución.]
-
-### 9.3. Resultados y análisis
-
-| Aspecto | Resultado simulado | Resultado físico | Diferencia / explicación |
-|---|---|---|---|
-| Forma y continuidad de la trayectoria | [Completar] | [Completar] | [Completar] |
-| Dimensiones y ubicación del trazo | [Completar] | [Completar] | [Completar] |
-| Orientación de la herramienta | [Completar] | [Completar] | [Completar] |
-| Tiempo de ejecución, si se midió | [Completar] | [Completar] | [Completar] |
-| Incidencias y ajustes realizados | [Completar] | [Completar] | [Completar] |
-
-**Discusión:** [Explicar las diferencias observadas y sus causas. Identificar cuáles resultados se midieron y cuáles corresponden a observaciones cualitativas.]
+El flujo de ejecución se describe en la sección 7 y los ajustes para simulación o ejecución física se documentan en la sección 5.2. El script utiliza la API de RoboDK y las bibliotecas `math` y `matplotlib`.
 
 ## 10. Videos de simulación e implementación física
 
