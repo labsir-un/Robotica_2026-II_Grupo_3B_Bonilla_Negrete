@@ -21,6 +21,7 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 8. [Plano de planta de la celda](#8-plano-de-planta-de-la-celda)
 9. [Código desarrollado](#9-código-desarrollado)
 10. [Videos de simulación e implementación física](#10-videos-de-simulación-e-implementación-física)
+11. [Referencias](#referencias)
 
 ## 1. Comparación técnica de los manipuladores
 
@@ -161,7 +162,7 @@ El movimiento manual (*jog*) se realiza desde el teach pendant del DX100. Permit
 
 | Elemento | Función |
 |---|---|
-| **Selector de modo (MODE)** | Es una llave que permine la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
+| **Selector de modo (MODE)** | Es una llave que permite la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
 | **SERVO ON READY** | Habilita la alimentación de los servomotores. |
 | **Enable switch (hombre muerto)** | Interruptor de 3 posiciones en la parte trasera del pendant; al apretarlo suavemente se energizan los servos. |
 | **COORD** | Cambia el sistema de coordenadas de movimiento manual. |
@@ -287,7 +288,7 @@ La velocidad manual determina qué tan rápido se mueve el manipulador cuando se
 | **Medium** (media) | `MED` | Velocidad intermedia. | Movimientos generales de trabajo y enseñanza de puntos. |
 | **High** (alta) | `FST` | Velocidad rápida. | Desplazamientos grandes en zonas despejadas. |
 
-Siempre se recomienda iniciar nen velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
+Siempre se recomienda iniciar en velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
 
 ### 2. Proceso para cambiar entre niveles
 
@@ -709,14 +710,28 @@ Contenido:
 3. [Conclusión sobre RoboDK, su comunicación y la comparación con RobotStudio.]
 4. [Conclusión sobre la trayectoria polar, su validación física y las diferencias respecto a la simulación.]
  
+-->
+
 ## Referencias
 
-- Yaskawa. *DX100 Operator's Manual*, sección 2.2 "General Operations".
-- Ramírez, R., Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia (diapositivas "Programación y operación básica DX100").
-- Guía del Laboratorio No. 02: PDF incluido en esta carpeta del repositorio.
-- [Ficha técnica del Motoman MH6: título, fabricante, enlace y página consultada.]
-- [Ficha técnica del ABB IRB140: título, fabricante, enlace y página consultada.]
-- [Manual del controlador / pendant utilizado: versión, enlace y secciones consultadas.]
-- [Documentación de RoboDK: funcionalidades, driver y postprocesador utilizados.]
-- [Documentación de RobotStudio y demás fuentes consultadas.]
---> 
+### Guía y material del curso
+
+- Universidad Nacional de Colombia. *Laboratorio No. 02 - Robótica Industrial: Análisis y Operación del Manipulador Motoman MH6*. [Guía incluida en el repositorio](Laboratorio_No__02____2026_I___Robo%CC%81tica_Industrial.pdf).
+- Ramírez, R. y Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia. Diapositivas del curso sobre programación y operación básica del DX100, selección de velocidad manual y área de estado.
+
+### Manipuladores y controlador
+
+- MOTOMAN. *MOTOMAN-MH6: General purpose and handling*, ficha B-07-2009, apartado «Specifications MH6». [Ficha técnica del fabricante, alojada por un tercero](https://dmliefer.ru/sites/default/files/brand/booklets/mh6_en.pdf).
+- ABB. *Product specification - IRB 140*, documento 3HAC041346-001, revisión Q, 2020. Secciones 1.1.2 (versiones y características generales) y 1.8 (movimiento, repetibilidad y velocidades). [Especificaciones oficiales](https://library.e.abb.com/public/a7121292272d40a9992a50745fdaa3b2/3HAC041346%20PS%20IRB%20140-en.pdf).
+- Yaskawa. *DX100 Operator's Manual*, documento 155507-1CD. Secciones 1.2 «Programming Pendant» y 2.2.0.5 «Select Manual Speed». [Manual del fabricante, alojado por Walla Walla University](https://people.wallawalla.edu/~ralph.stirling/classes/engr480/docs/Motoman/dx100_operator_155507-1CD.pdf).
+
+### RoboDK, RobotStudio y programación
+
+- RoboDK. *Interface*. Herramientas, TCP y sistemas de referencia. [Documentación oficial](https://robodk.com/doc/en/Interface.html).
+- RoboDK. *RoboDK API: robodk package*. Movimientos `MoveJ`, `MoveL` y `MoveC`, selección de marcos, herramientas y parámetros de movimiento. [API de Python](https://robodk.com/doc/en/PythonAPI/robodk.html).
+- RoboDK. *Post Processors*. Instrucciones de programa, pausas y generación de código. [Documentación oficial](https://robodk.com/doc/en/PythonAPI/postprocessor.html).
+- RoboDK. *Yaskawa Motoman robots*. Conexión Ethernet, driver MotomanHSE y modo REMOTE. [Documentación oficial](https://robodk.com/doc/en/Robots-Motoman.html).
+- RoboDK. *How to use Robot Drivers*. Conexión desde Python y comprobación mediante `ConnectedState()` y `ROBOTCOM_READY`. [Documentación oficial](https://robodk.com/doc/en/Robot-Drivers-How-use-Robot-Drivers.html).
+- RoboDK, soporte técnico. *The behavior of setPoseTool is buggy*. Respuesta de Albert del 9 de diciembre de 2024 sobre la limitación de asignación de herramientas en Motoman mediante el driver. [Foro oficial](https://robodk.com/forum/Thread-The-behavior-of-setPoseTool-is-buggy).
+- ABB. *RobotStudio Desktop*. Simulación, programación fuera de línea y controlador virtual de ABB. [Descripción oficial](https://www.abb.com/global/en/areas/robotics/products/software/robotstudio-suite/robotstudio-desktop).
+- Matplotlib. *matplotlib.textpath*. Generación de contornos de texto mediante `TextPath`, utilizada para los nombres del equipo. [Documentación oficial](https://matplotlib.org/stable/api/textpath_api.html).
