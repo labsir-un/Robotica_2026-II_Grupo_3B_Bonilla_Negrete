@@ -25,15 +25,20 @@ robot = RDK.ItemUserPick("Selecciona un robot", ITEM_TYPE_ROBOT)
 if not robot.Valid():
     raise Exception("No se ha seleccionado un robot válido.")
 
-# Conectar al robot físico
-#if not robot.Connect():
-#    raise Exception("No se pudo conectar al robot. Verifica que esté en modo remoto y que la configuración sea correcta.")
+# Simulación: ejecutar desde RoboDK sin seleccionar "Ejecutar en robot".
+# Comentar este mensaje al habilitar el bloque de ejecución física.
+print("Modo simulación: sin conexión al robot físico.")
 
-# Confirmar conexión
-#if not robot.ConnectedState():
-#   raise Exception("El robot no está conectado correctamente. Revisa la conexión.")
-
-print("Robot conectado correctamente.")
+# Ejecución física: descomentar este bloque solo con la celda verificada.
+# if not robot.Connect():
+#     raise Exception("No se pudo conectar al robot. Verifica el modo remoto y la configuración.")
+#
+# Corrección posterior al laboratorio: ConnectedState devuelve (estado, mensaje).
+# estado, mensaje = robot.ConnectedState()
+# if estado != ROBOTCOM_READY:
+#     raise Exception("El robot no está listo: " + mensaje)
+#
+# print("Robot conectado y listo para ejecución física.")
 
 #------------------------------------------------
 # 2) Cargar el Frame (ya existente) donde quieres dibujar
@@ -46,7 +51,8 @@ if not frame.Valid():
 
 # Asignamos este frame al robot
 robot.setPoseFrame(frame)
-# Usamos la herramienta activa
+# Solo simulación: comentar setPoseTool para ejecución física con el driver Motoman.
+# En el controlador, configurar y seleccionar previamente el TCP correspondiente.
 robot.setPoseTool(robot.PoseTool())
 
 # Ajustes de velocidad y blending

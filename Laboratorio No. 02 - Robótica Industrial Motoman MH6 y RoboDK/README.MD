@@ -4,7 +4,6 @@
 
 **Fecha de la práctica:** [11/11/2026]
 
-> Plantilla de informe basada en las tareas y los requerimientos de la guía. Reemplazar los campos entre corchetes con datos verificados, resultados y evidencias de la práctica. Las rutas del apartado de anexos son propuestas; enlazar los archivos cuando se agreguen al repositorio.
 
 ## Objetivo
 
@@ -352,25 +351,68 @@ El control de velocidad de simulación permite acelerar o ralentizar la reproduc
 
 ### 5.2. Comunicación utilizada
 
-| Parámetro | Configuración utilizada |
-|---|---|
-| Versión de RoboDK | [Completar] |
-| Controlador del Motoman | [Completar] |
-| Medio de conexión y configuración de red | [Completar] |
-| Driver / protocolo y requisitos del controlador | [Completar] |
-| Modalidad de ejecución desde el PC | [Completar] |
-| Postprocesador, si se utilizó | [Completar / No aplica] |
-| Verificación de conexión | [Estado mostrado y evidencia] |
+La comunicación física se realizó mediante un cable Ethernet entre el PC y el controlador del Motoman MH6. RoboDK utiliza un driver para intercambiar órdenes de movimiento y consultar el estado del robot. Para aceptar el control externo, el manipulador debe estar en modo **REMOTE**.
 
-**¿Qué hace RoboDK para mover el manipulador?** [Describir el recorrido desde la definición de puntos y poses hasta su ejecución: cinemática, instrucciones, driver o programa generado y función del controlador. Distinguir simulación, transferencia de programas y control en línea; indicar cuál se usó realmente.]
+#### Configuración y comprobación de la conexión
 
-**Procedimiento aplicado:**
+1. Conectar el PC y el controlador mediante Ethernet y verificar que sus direcciones y máscaras permitan comunicarse en la misma red. La IP del PC debe ser diferente de la del robot.
+2. Seleccionar el robot en RoboDK y abrir **Conectar robot**.
+3. Introducir la dirección IP asignada al controlador en la red del laboratorio.
+4. Utilizar **ping** para comprobar si el controlador responde en la red. Una respuesta confirma accesibilidad IP, pero no demuestra que el servicio de control esté disponible ni que el robot esté listo para moverse.
+5. Colocar el selector del pendant en **REMOTE**, según el procedimiento del laboratorio, y pulsar **Conectar** en RoboDK.
+6. Verificar el estado de conexión y, si es necesario, consultar **Mostrar registro**. Comprobar la lectura de la posición antes de ejecutar la trayectoria desde el PC.
 
-1. [Preparar la estación, herramienta y referencia.]
-2. [Configurar la conexión al controlador.]
-3. [Verificar el estado de conexión y la correspondencia entre la estación y el robot.]
-4. [Seleccionar la modalidad de ejecución y ejecutar la rutina validada.]
-5. [Registrar el resultado y la evidencia del control desde el PC.]
+![Panel de conexión de RoboDK al Motoman MH6](Imagenes/conexion_motoman.png)
+
+*Ejemplo de la interfaz de conexión de RoboDK al Motoman MH6. Permite introducir la IP del controlador, comprobar su accesibilidad mediante ping y gestionar la conexión. Los parámetros deben ajustarse a la configuración de la celda utilizada.*
+
+#### Cambios del código para simular y corrección de la conexión
+
+El código base del docente contenía errores intencionales como parte de la actividad de identificación y corrección. Durante el laboratorio no advertimos el problema de la comprobación `if not robot.ConnectedState()`. Fue al revisar posteriormente el código cuando identificamos que esta función devuelve una pareja `(estado, mensaje)`: una tupla no vacía se evalúa como verdadera incluso cuando su código de estado indica un error. Por ello, aquella condición no detectaba correctamente una conexión no disponible. Corregimos esta comprobación en el archivo del repositorio después de la práctica; la versión corregida no fue la utilizada durante la ejecución física del laboratorio.
+
+Para simular, en [FiguraPolar.py](FiguraPolar.py) se mantiene comentado el bloque de conexión física y se ejecuta el script desde RoboDK en simulación, sin seleccionar **Ejecutar en robot**. El mensaje correspondiente es:
+
+```python
+print("Modo simulación: sin conexión al robot físico.")
+```
+
+Para ejecutar sobre el manipulador real se debe comentar el mensaje de simulación y descomentar el bloque de ejecución física, una vez verificadas la celda, la conexión y el modo REMOTE. El bloque corregido es:
+
+```python
+if not robot.Connect():
+    raise Exception("No se pudo conectar al robot. Verifica el modo remoto y la configuración.")
+
+estado, mensaje = robot.ConnectedState()
+if estado != ROBOTCOM_READY:
+    raise Exception("El robot no está listo: " + mensaje)
+
+print("Robot conectado y listo para ejecución física.")
+```
+
+La comparación con `ROBOTCOM_READY` comprueba el código de estado devuelto por la API. También corregimos el mensaje de confirmación, que antes se imprimía incluso con la conexión comentada: ahora cada modalidad tiene su propio mensaje y la confirmación física queda después de la comprobación. El bloque corregido de ejecución física queda pendiente de comprobar nuevamente con el robot.
+
+#### Configuración de la herramienta: simulación e implementación física
+
+La línea que debe conservarse en simulación y comentarse para la ejecución física mediante el driver de Motoman es:
+
+```python
+robot.setPoseTool(robot.PoseTool())
+```
+
+La limitación está en la asignación de la herramienta mediante `setPoseTool()`: el soporte oficial de RoboDK indica que esta operación no está soportada para Motoman mediante el driver y que la herramienta debe configurarse previamente en el controlador. `PoseTool()` consulta la transformación del TCP en RoboDK; el controlador no recibe ni interpreta esa expresión de Python.
+
+Por tanto, para la implementación física se omite esta asignación desde el script y se verifica previamente que el TCP configurado y seleccionado en el controlador corresponda al de la herramienta utilizada en RoboDK. Comentar la instrucción evita solicitar una operación no soportada, pero no elimina la necesidad de configurar correctamente la herramienta.
+
+
+**Fuente:** [aclaración del soporte de RoboDK sobre `setPoseTool()` en Motoman](https://robodk.com/forum/Thread-The-behavior-of-setPoseTool-is-buggy).
+
+#### Envío de órdenes y velocidad de comunicación
+
+El script de Python calcula los puntos de la trayectoria y solicita los movimientos a RoboDK. Este interpreta las poses con el marco de referencia y el TCP activos, y utiliza el driver para enviar las órdenes al controlador mediante Ethernet y consultar el estado del robot.
+
+La comunicación se caracteriza por la capacidad del enlace (Mbit/s) y la frecuencia de actualización (Hz), mientras que la velocidad del movimiento se expresa en mm/s o °/s. En la práctica se programó una velocidad lineal de **100 mm/s** mediante `robot.setSpeed(100)`; no se midió la velocidad de comunicación.
+
+**Fuentes:** [conexión de robots Yaskawa Motoman y driver MotomanHSE](https://robodk.com/doc/en/Robots-Motoman.html), [conexión desde Python y comprobación de estado](https://robodk.com/doc/en/Robot-Drivers-How-use-Robot-Drivers.html) y [API de Python de RoboDK](https://robodk.com/doc/en/PythonAPI/robodk.html).
 
 ## 6. Comparación entre RoboDK y RobotStudio
 
