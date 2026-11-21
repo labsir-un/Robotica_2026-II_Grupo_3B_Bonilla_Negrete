@@ -74,29 +74,81 @@ A continuación se presenta la comparación de las características técnicas de
 - **Carga:** ambos manejan 6 kg, por lo que la elección depende del alcance, la precisión y el ecosistema (controlador y software).
 - **Programación:** el MH6 usa PYTHON; el IRB 140 usa RAPID (IRC5).
 
-## 2. Configuraciones home1 y home2
+## Configuraciones Home 1 y Home 2 del Motoman MH6
 
-**Definición en la celda utilizada:** [Explicar qué representan home1 y home2 y cómo se consultaron. No asumir valores a partir del nombre de la configuración.]
+El controlador del Motoman MH6 permite definir posiciones de referencia (*home*). Aquí se describen dos: **Home 1** (posición por defecto de fábrica) y **Home 2** (posición con los encoders en cero).
 
-| Articulación del MH6 | Posición en home1 (°) | Posición en home2 (°) |
+---
+
+### Home 1: posición por defecto de fábrica
+
+El **Home 1** es la posición de origen con la que el robot **se entrega de fábrica**. El brazo queda **plegado y compacto**, lo que **facilita su transporte y almacenamiento**.
+
+<table>
+  <tr>
+    <td align="center"><img src="imagenes/home1_pendant.jpeg" width="300"><br><em>Pendant: WORK HOME POSITION</em></td>
+    <td align="center"><img src="imagenes/home1_robot.jpeg" width="450"><br><em>MH6 en la posición Home 1</em></td>
+  </tr>
+</table>
+
+**Posición de cada articulación en Home 1**
+
+| Articulación | Eje | ORIGIN (pulsos) | CURRENT (pulsos) |
+|:---:|:---:|---:|---:|
+| Base (giro) | S | 0 | 0 |
+| Hombro | L | −115290 | −115290 |
+| Codo | U | −111622 | −111622 |
+| Antebrazo (giro) | R | 1 | 1 |
+| Muñeca (flexión) | B | 42647 | 42647 |
+| Brida (giro) | T | 1392 | 1392 |
+
+---
+
+### Home 2: posición con los encoders en cero
+
+En el **Home 2** (*Second Home Position*) **los encoders de todos los servomotores están en (o muy cerca de) cero**. El brazo queda **extendido verticalmente**, lo que **facilita el trabajo con el robot**: sirve como referencia clara para calibrar, programar trayectorias y verificar cada eje.
+
+<table>
+  <tr>
+    <td align="center"><img src="imagenes/home2_pendant.jpeg" width="300"><br><em>Pendant: SECOND HOME POS</em></td>
+    <td align="center"><img src="imagenes/home2_robot.jpeg" width="450"><br><em>MH6 en la posición Home 2</em></td>
+  </tr>
+</table>
+
+**Posición de cada articulación en Home 2**
+
+| Articulación | Eje | SPECIFIED (pulsos) | CURRENT (pulsos) | DIFFERENCE |
+|:---:|:---:|---:|---:|---:|
+| Base (giro) | S | 0 | 0 | 0 |
+| Hombro | L | 2037 | 2037 | 0 |
+| Codo | U | 2359 | 2359 | 0 |
+| Antebrazo (giro) | R | 0 | 0 | 0 |
+| Muñeca (flexión) | B | −121 | −121 | 0 |
+| Brida (giro) | T | 1392 | 1392 | 0 |
+
+> **Nota:** los valores están en **pulsos de encoder**. En el Home 2 son cercanos a cero, no exactamente cero, por pequeñas compensaciones de calibración.
+
+---
+
+### Comparación
+
+| Aspecto | Home 1 | Home 2 |
 |---|---|---|
-| S | [Completar] | [Completar] |
-| L | [Completar] | [Completar] |
-| U | [Completar] | [Completar] |
-| R | [Completar] | [Completar] |
-| B | [Completar] | [Completar] |
-| T | [Completar] | [Completar] |
+| **Definición** | Posición por defecto de fábrica | Posición con encoders en cero |
+| **Postura del brazo** | Plegado y compacto | Extendido verticalmente |
+| **Uso principal** | Transporte y almacenamiento | Trabajo, calibración y programación |
+| **Valores de los ejes** | Altos (±100 000 pulsos en L y U) | Cercanos a cero |
 
-**Evidencias:** [Agregar fotografías o capturas identificadas de ambas configuraciones y de sus valores articulares.]
+### ¿Cuál posición es mejor?
 
-| Criterio | home1 | home2 |
-|---|---|---|
-| Separación respecto a obstáculos y mesa | [Completar] | [Completar] |
-| Facilidad de acceso a la trayectoria | [Completar] | [Completar] |
-| Proximidad a límites articulares o singularidades | [Completar] | [Completar] |
-| Utilidad como posición de inicio y retorno | [Completar] | [Completar] |
+Para **trabajar con el robot, el Home 2 es mejor**:
 
-**¿Cuál posición es mejor y por qué?** [Elegir para las condiciones de esta práctica y justificar con los valores, las evidencias y los criterios anteriores.]
+1. **Referencia clara:** con los encoders en cero, cada eje tiene un punto de partida inequívoco.
+2. **Facilidad de programación:** la postura extendida es intuitiva para planificar trayectorias.
+3. **Mayor visibilidad y acceso:** el brazo extendido deja libre el espacio y permite inspeccionar las articulaciones.
+4. **Menor riesgo de error:** los valores cercanos a cero son fáciles de leer y comparar.
+
+El **Home 1** es mejor para **transportar o guardar** el robot por su postura compacta. En conclusión: Home 1 es la posición de **entrega y transporte**; Home 2 es la de **trabajo y referencia**.
 
 ## 3. Procedimiento de movimientos manuales
 
