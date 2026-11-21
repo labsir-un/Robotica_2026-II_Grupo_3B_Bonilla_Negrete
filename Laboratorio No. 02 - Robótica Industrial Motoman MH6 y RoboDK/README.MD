@@ -23,34 +23,56 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 9. [Trayectoria polar y código anexo](#9-trayectoria-polar-y-código-anexo)
 10. [Videos de simulación e implementación física](#10-videos-de-simulación-e-implementación-física)
 
-## 1. Comparación técnica de los manipuladores
+## 1. Comparación técnica de los manipuladores: Motoman MH6 vs ABB IRB 140
 
 Indicar la variante exacta de cada robot y las fuentes consultadas. Usar las mismas unidades y condiciones para comparar sus características.
 
-| Característica | Motoman MH6 | ABB IRB140 | Fuente / observación |
-|---|---|---|---|
-| Variante y controlador | [Completar] | [Completar] | [Referencia] |
-| Carga máxima (kg) | [Completar] | [Completar] | [Referencia] |
-| Alcance máximo (mm) | [Completar] | [Completar] | [Referencia] |
-| Número de grados de libertad | [Completar] | [Completar] | [Referencia] |
-| Tipo de articulaciones | [Completar] | [Completar] | [Referencia] |
-| Repetibilidad (mm) | [Completar] | [Completar] | [Referencia] |
-| Masa del manipulador (kg) | [Completar] | [Completar] | [Referencia] |
-| Opciones de montaje | [Completar] | [Completar] | [Referencia] |
-| Aplicaciones típicas | [Completar] | [Completar] | [Referencia] |
+### Características generales
 
-### Rangos y velocidades articulares
+| Característica | Motoman MH6 (Yaskawa) | ABB IRB 140 |
+|---|---|---|
+| **Fabricante** | Yaskawa Motoman (Japón) | ABB Robotics (Suiza/Suecia) |
+| **Tipo** | Articulado vertical | Articulado vertical |
+| **Carga máxima (payload)** | 6 kg | 6 kg |
+| **Alcance máximo** | 1422 mm | 810 mm |
+| **Grados de libertad** | 6 | 6 |
+| **Repetibilidad** | ±0,08 mm | ±0,03 mm |
+| **Peso del robot** | ≈ 130 kg | ≈ 98 kg |
+| **Controlador** | DX100 / DX200 | IRC5 |
+| **Lenguaje de programación** | PYTHON (RoboDK) | RAPID |
+| **Montaje** | Suelo, pared, techo | Suelo, pared, invertido, inclinado |
+| **Protección** | IP54 (muñeca IP67) | IP67 |
+| **Aplicaciones típicas** | Soldadura por arco, manipulación, ensamblaje, dispensado, atención de máquinas | Soldadura por arco, ensamblaje, manipulación, atención de máquinas, empaquetado, limpieza/pintura, desbarbado |
 
-| Eje equivalente | Rango MH6 (°) | Velocidad máxima MH6 (°/s) | Rango IRB140 (°) | Velocidad máxima IRB140 (°/s) |
-|---|---|---|---|---|
-| 1 / S | [Completar] | [Completar] | [Completar] | [Completar] |
-| 2 / L | [Completar] | [Completar] | [Completar] | [Completar] |
-| 3 / U | [Completar] | [Completar] | [Completar] | [Completar] |
-| 4 / R | [Completar] | [Completar] | [Completar] | [Completar] |
-| 5 / B | [Completar] | [Completar] | [Completar] | [Completar] |
-| 6 / T | [Completar] | [Completar] | [Completar] | [Completar] |
+### Rango de movimiento por eje
 
-**Análisis:** [Explicar qué diferencias afectan la selección del robot para la práctica y para otras aplicaciones. Distinguir la velocidad máxima de ficha técnica de la velocidad usada en el laboratorio.]
+| Eje | MH6 | IRB 140 |
+|---|---|---|
+| Eje 1 (base) | ±170° | ±180° |
+| Eje 2 (hombro) | +155° / −90° | +110° / −90° |
+| Eje 3 (codo) | +250° / −175° | +50° / −230° |
+| Eje 4 (antebrazo) | ±180° | ±200° |
+| Eje 5 (muñeca) | +225° / −45° | ±115° |
+| Eje 6 (brida) | ±360° | ±400° |
+
+### Velocidad máxima por eje
+
+| Eje | MH6 | IRB 140 |
+|---|---|---|
+| Eje 1 | 220 °/s | 200 °/s |
+| Eje 2 | 200 °/s | 200 °/s |
+| Eje 3 | 220 °/s | 260 °/s |
+| Eje 4 | 410 °/s | 360 °/s |
+| Eje 5 | 410 °/s | 360 °/s |
+| Eje 6 | 610 °/s | 450 °/s |
+
+### Análisis
+
+- **Alcance:** el Motoman MH6 ofrece un volumen de trabajo mucho mayor (1422 mm frente a 810 mm), ideal para celdas amplias o piezas grandes.
+- **Precisión:** el IRB 140 es más preciso (±0,03 mm vs ±0,08 mm), útil en ensamblaje fino y tareas de alta exactitud.
+- **Compacidad:** el IRB 140 es más ligero y compacto, con protección IP67 en todo el robot, lo que facilita su uso en espacios reducidos y entornos exigentes.
+- **Carga:** ambos manejan 6 kg, por lo que la elección depende del alcance, la precisión y el ecosistema (controlador y software).
+- **Programación:** el MH6 usa PYTHON; el IRB 140 usa RAPID (IRC5).
 
 ## 2. Configuraciones home1 y home2
 
