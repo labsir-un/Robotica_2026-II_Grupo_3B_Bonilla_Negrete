@@ -35,7 +35,7 @@ A continuación se presenta la comparación de las características técnicas de
 | **Tipo** | Articulado vertical | Articulado vertical |
 | **Carga máxima (payload)** | 6 kg | 6 kg |
 | **Alcance máximo** | 1422 mm | 810 mm |
-| **Grados de libertad** | 8 (6 del manipulador, 1 de la banda inferior, 1 del eje externo) | 6 |
+| **Grados de libertad** | 6 (8 en la instalación completa: 6 del manipulador, 1 de la banda inferior, 1 del eje externo) | 6 |
 | **Precisión** | ±0,08 mm | ±0,03 mm |
 | **Peso del robot** | ≈ 130 kg | ≈ 98 kg |
 | **Controlador** | DX100 / DX200 | IRC5 |
