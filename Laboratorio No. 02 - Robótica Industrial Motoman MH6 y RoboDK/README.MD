@@ -161,7 +161,7 @@ El movimiento manual (*jog*) se realiza desde el teach pendant del DX100. Permit
 
 | Elemento | Función |
 |---|---|
-| **Selector de modo (MODE)** | Es una llave que permine la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
+| **Selector de modo (MODE)** | Es una llave que permite la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
 | **SERVO ON READY** | Habilita la alimentación de los servomotores. |
 | **Enable switch (hombre muerto)** | Interruptor de 3 posiciones en la parte trasera del pendant; al apretarlo suavemente se energizan los servos. |
 | **COORD** | Cambia el sistema de coordenadas de movimiento manual. |
@@ -287,7 +287,7 @@ La velocidad manual determina qué tan rápido se mueve el manipulador cuando se
 | **Medium** (media) | `MED` | Velocidad intermedia. | Movimientos generales de trabajo y enseñanza de puntos. |
 | **High** (alta) | `FST` | Velocidad rápida. | Desplazamientos grandes en zonas despejadas. |
 
-Siempre se recomienda iniciar nen velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
+Siempre se recomienda iniciar en velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
 
 ### 2. Proceso para cambiar entre niveles
 
@@ -312,7 +312,7 @@ El cambio de velocidad se puede hacer en cualquier momento, incluso con el robot
 
 El botón [HIGH SPEED] permite mover el robot a una velocidad alta de forma momentánea, sin cambiar el nivel configurado:
 
-- Se debe mantener presionada junto con una tecla de eje.
+- Se debe mantener presionado junto con una tecla de eje.
 - Al soltarla, el robot vuelve a moverse al nivel de velocidad seleccionado.
 - La velocidad de [HIGH SPEED] está definida previamente en el controlador.
 - No funciona cuando el nivel seleccionado es `INCH`.
