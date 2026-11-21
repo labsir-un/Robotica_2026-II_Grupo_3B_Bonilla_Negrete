@@ -527,9 +527,8 @@ Inconvenientes:
 Aplicaciones:
 
 - Puesta en marcha virtual y validación de celdas robotizadas con robots ABB.
-- Programación fuera de línea de soldadura, paletizado, manipulación y ensamblaje.
+- Programación fuera de línea de soldadura/decoración, paletizado, manipulación y ensamblaje.
 - Formación y prácticas en programación de robots ABB.
-- Optimización de trayectorias, tiempos de ciclo y alcance antes de implementar en planta.
 
 ### 6. RoboDK: ventajas, inconvenientes y aplicaciones
 
@@ -538,8 +537,7 @@ Ventajas:
 - Soporta múltiples marcas y más de 500 modelos de robots, con librería en la nube.
 - Programación flexible: instrucciones, bloques y Python.
 - Facilita trabajar con CAD/CAM, por ejemplo, para generar trayectorias a partir de piezas y superficies.
-- Disponible en Windows, Linux y macOS.
-- Útil para comparar robots y elegir el más adecuado para una aplicación.
+- Disponible en Windows, Linux y macOS
 
 Inconvenientes:
 
@@ -560,11 +558,10 @@ Aplicaciones:
 | Situación | Herramienta recomendada |
 |---|---|
 | Se trabaja únicamente con robots ABB y se necesita la máxima fidelidad | RobotStudio |
-| Se necesita validar lógica, señales de E/S y tiempos del controlador | RobotStudio |
+| Se necesita validar lógica, señales digitales de E/S y tiempos del controlador | RobotStudio |
 | La celda incluye robots de varias marcas (por ejemplo, ABB y Motoman) | RoboDK |
 | Se busca programar con Python o de forma gráfica, sin aprender el lenguaje de cada fabricante | RoboDK |
 | Se generan trayectorias desde modelos CAD (mecanizado, impresión 3D, soldadura) | RoboDK |
-| Se dispone de licencia académica de ABB y se trabaja con el IRB 140 | RobotStudio |
 
 ## 7. Diagrama de flujo de acciones del robot
 
