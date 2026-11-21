@@ -150,41 +150,126 @@ Para trabajar con el robot, el Home 2 es mejor:
 
 El Home 1 es mejor para transportar o guardar el robot por su postura compacta. En conclusión: Home 1 es la posición de entrega y transporte; Home 2 es la de trabajo y referencia.
 
-## 3. Procedimiento de movimientos manuales
+## Procedimiento para realizar movimientos manuales (Motoman MH6 – Controlador DX100)
 
-**Equipo utilizado:** [Modelo del controlador y del pendant; herramienta y TCP activos.]
+El movimiento manual (*jog*) se realiza desde el teach pendant del DX100. Permite mover el manipulador de dos formas principales: por articulaciones (cada eje por separado) o en coordenadas cartesianas (el efector final se traslada y rota en los ejes X, Y, Z).
 
-**Condiciones previas:** [Registrar modo de operación, habilitación requerida, zona despejada y velocidad inicial según las instrucciones del laboratorio.]
+### 1. Elementos del pendant que se utilizan
 
-### 3.1. Movimiento por articulaciones
+<p align="center">
+  <img src="imagenes/dx100_teclas_principales.png" width="500" alt="Partes más utilizadas del pendant">
+</p>
 
-| Paso | Acción y tecla / menú utilizado | Indicador en pantalla | Resultado observado |
-|---|---|---|---|
-| 1 | [Seleccionar el modo de operación requerido] | [Completar] | [Completar] |
-| 2 | [Seleccionar el sistema de movimiento articular] | [Completar] | [Completar] |
-| 3 | [Seleccionar la velocidad manual] | [Completar] | [Completar] |
-| 4 | [Habilitar y mover una articulación en ambos sentidos; indicar teclas] | [Completar] | [Completar] |
-| 5 | [Detener el movimiento y registrar la posición] | [Completar] | [Completar] |
+| Elemento | Función |
+|---|---|
+| **Selector de modo (MODE)** | Es una llave que permine la selección de modos REMOTE, PLAY o TEACH. El movimiento manual se hace en TEACH. |
+| **SERVO ON READY** | Habilita la alimentación de los servomotores. |
+| **Enable switch (hombre muerto)** | Interruptor de 3 posiciones en la parte trasera del pendant; al apretarlo suavemente se energizan los servos. |
+| **COORD** | Cambia el sistema de coordenadas de movimiento manual. |
+| **Teclas de ejes** | Mueven cada eje o dirección (S, L, U, R, B, T / X, Y, Z). |
+| **Paro de emergencia** | Corta la energía de los servos en cualquier momento. |
 
-### 3.2. Cambio a movimiento cartesiano
+### 2. Preparación y activación de los servos
 
-1. [Indicar la tecla o secuencia para cambiar del modo articular al cartesiano.]
-2. [Indicar cómo seleccionar y verificar el marco de referencia: base, herramienta o usuario, según lo utilizado.]
-3. [Indicar cómo verificar la herramienta / TCP activos.]
-4. [Describir la habilitación y la ejecución del movimiento.]
+Antes de mover el robot, hay que verificar que no haya personas ni obstáculos dentro de su espacio de trabajo y ten siempre a la mano el paro de emergencia.
 
-### 3.3. Traslaciones y rotaciones
+1. Girar el selector de modo a la posición TEACH.
+2. Liberar el paro de emergencia (gíralo en el sentido de la flecha).
+3. Presionar [SERVO ON READY]. La luz *SERVO ON* comenzará a parpadear.
+4. Apretar suavemente el Enable switch de la parte trasera del pendant. La luz *SERVO ON* quedará encendida fija y se escuchará liberarse los frenos de los motores.
+5. Mientras mantengas el Enable switch en su posición intermedia, el robot puede moverse con las teclas de ejes.
 
-| Movimiento | Marco utilizado | Tecla / combinación positiva | Tecla / combinación negativa | Resultado observado |
-|---|---|---|---|---|
-| Traslación en X | [Completar] | [Completar] | [Completar] | [Completar] |
-| Traslación en Y | [Completar] | [Completar] | [Completar] | [Completar] |
-| Traslación en Z | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de X | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de Y | [Completar] | [Completar] | [Completar] | [Completar] |
-| Rotación alrededor de Z | [Completar] | [Completar] | [Completar] | [Completar] |
+<p align="center">
+  <img src="imagenes/activacion_servos.png" width="350" alt="Enable switch del pendant">
+</p>
 
-**Evidencias:** [Insertar capturas del sistema de coordenadas seleccionado y fotografías o video de los movimientos. Explicar las etiquetas de orientación mostradas por el controlador.]
+Si se suelta el Enable switch, se aprieta a fondo, los servos se apagan inmediatamente. Para volver a activarlos, hay que repetir los pasos 3 y 4.
+
+### 3. Selección del sistema de coordenadas
+
+La tecla [COORD] cambia entre los sistemas de coordenadas disponibles. Cada pulsación pasa al siguiente, y el icono de la pantalla muestra el modo activo.
+
+<p align="center">
+  <img src="imagenes/seleccion_coordenadas.png" width="500" alt="Selección de coordenadas con la tecla COORD">
+</p>
+
+| Icono | Sistema | Descripción |
+|---|---|---|
+| Joint | **Articulaciones** | Cada tecla mueve un eje individual del robot. |
+| Cartesian | **Cartesiano** | El TCP se mueve en líneas rectas X, Y, Z respecto a la base del robot. |
+| Cylindrical | **Cilíndrico** | Movimiento en coordenadas cilíndricas (giro, radio y altura). |
+| Tool | **Herramienta** | Los ejes X, Y, Z están fijos a la herramienta y se mueven con ella. |
+| User | **Usuario** | Los ejes se definen respecto a un sistema creado por el usuario. |
+
+### 4. Movimiento por articulaciones (modo Joint)
+
+Para pasar a este modo, presiona [COORD] hasta que aparezca el icono de Joint en la pantalla. Cada par de teclas mueve un eje del robot:
+
+<p align="center">
+  <img src="imagenes/movimiento_articulaciones.png" width="650" alt="Movimiento de articulaciones del MH6">
+</p>
+
+| Eje | Articulación | Tecla − | Tecla + |
+|:---:|---|:---:|:---:|
+| **S** | Base (giro) | `X-/S-` | `X+/S+` |
+| **L** | Hombro | `Y-/L-` | `Y+/L+` |
+| **U** | Codo | `Z-/U-` | `Z+/U+` |
+| **R** | Antebrazo (giro) | `X-/R-` | `X+/R+` |
+| **B** | Muñeca (flexión) | `Y-/B-` | `Y+/B+` |
+| **T** | Brida (giro) | `Z-/T-` | `Z+/T+` |
+
+Pasos:
+
+1. Activa los servos (sección 2).
+2. Presiona [COORD] hasta seleccionar Joint.
+3. Mantén apretado el Enable switch y mantén presionada la tecla del eje y sentido deseado: el eje se mueve mientras la tecla esté presionada.
+4. Suelta la tecla para detener el movimiento.
+
+### 5. Movimiento cartesiano: traslaciones y rotaciones en X, Y, Z
+
+Presiona [COORD] hasta que aparezca el icono de Cartesian. Las mismas teclas ahora mueven el robot en el espacio de trabajo, en lugar de mover cada articulación:
+
+<p align="center">
+  <img src="imagenes/movimiento_cartesiano.png" width="600" alt="Movimiento en el espacio de trabajo (X, Y, Z)">
+</p>
+
+| Movimiento | Tecla − | Tecla + | Efecto |
+|---|:---:|:---:|---|
+| **Traslación en X** | `X-` | `X+` | El TCP se mueve a lo largo del eje X. |
+| **Traslación en Y** | `Y-` | `Y+` | El TCP se mueve a lo largo del eje Y. |
+| **Traslación en Z** | `Z-` | `Z+` | El TCP sube o baja a lo largo del eje Z. |
+| **Rotación sobre X** | `X-` (derecha) | `X+` (derecha) | La herramienta gira alrededor del eje X. |
+| **Rotación sobre Y** | `Y-` (derecha) | `Y+` (derecha) | La herramienta gira alrededor del eje Y. |
+| **Rotación sobre Z** | `Z-` (derecha) | `Z+` (derecha) | La herramienta gira alrededor del eje Z. |
+
+Pasos:
+
+1. Activa los servos (sección 2).
+2. Presiona [COORD] hasta seleccionar Cartesian.
+3. Con el Enable switch apretado, mantén presionada la tecla del eje (X, Y o Z) y el sentido (+ o −) para trasladar, o la tecla del grupo derecho para rotar la herramienta.
+4. Suelta la tecla para detener el movimiento.
+
+### 6. Movimiento en coordenadas de herramienta
+
+En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el movimiento es siempre relativo a su orientación. Es útil para acercar o alejar la herramienta de una pieza sin importar cómo esté inclinada.
+
+<p align="center">
+  <img src="imagenes/movimiento_herramienta.png" width="600" alt="Coordenadas de herramienta">
+</p>
+
+### 7. Resumen del procedimiento
+
+```
+1. MODE → TEACH
+2. Liberar paro de emergencia
+3. SERVO ON READY (parpadea)
+4. Enable switch apretado suavemente (luz fija)
+5. COORD → elegir Joint / Cartesian / Cylindrical / Tool / User
+6. Mantener tecla de eje → el robot se mueve
+7. Soltar tecla → el robot se detiene
+```
+
+
 
 ## 4. Niveles de velocidad manual
 
@@ -385,6 +470,8 @@ Si se presenta un solo video con ambas evidencias, indicar el enlace y las marca
  
 ## Referencias
 
+- Yaskawa. *DX100 Operator's Manual*, sección 2.2 "General Operations".
+- Ramírez, R., Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia (diapositivas "Programación y operación básica DX100").
 - Guía del Laboratorio No. 02: PDF incluido en esta carpeta del repositorio.
 - [Ficha técnica del Motoman MH6: título, fabricante, enlace y página consultada.]
 - [Ficha técnica del ABB IRB140: título, fabricante, enlace y página consultada.]
