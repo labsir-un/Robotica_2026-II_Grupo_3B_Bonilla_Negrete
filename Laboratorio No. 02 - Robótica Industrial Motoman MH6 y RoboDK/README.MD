@@ -126,7 +126,7 @@ En el **Home 2** (*Second Home Position*) **los encoders de todos los servomotor
 | Muñeca (flexión) | B | −121 | −121 | 0 |
 | Brida (giro) | T | 1392 | 1392 | 0 |
 
-> **Nota:** los valores están en **pulsos de encoder**. En el Home 2 son cercanos a cero, no exactamente cero, por pequeñas compensaciones de calibración.
+> **Nota:** los valores  de las articulaciones están en pulsos de encoder. En el Home 2 son cercanos a cero, no exactamente cero, por pequeñas compensaciones de calibración.
 
 ---
 
