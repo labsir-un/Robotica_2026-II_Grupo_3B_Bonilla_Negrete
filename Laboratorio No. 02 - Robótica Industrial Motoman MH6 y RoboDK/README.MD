@@ -36,10 +36,10 @@ A continuación se presenta la comparación de las características técnicas de
 | **Carga máxima (payload)** | 6 kg | 6 kg |
 | **Alcance máximo** | 1422 mm | 810 mm |
 | **Grados de libertad** | 8 (6 del manipulador, 1 de la banda inferior, 1 del eje externo) | 6 |
-| **Repetibilidad** | ±0,08 mm | ±0,03 mm |
+| **Precisión** | ±0,08 mm | ±0,03 mm |
 | **Peso del robot** | ≈ 130 kg | ≈ 98 kg |
 | **Controlador** | DX100 / DX200 | IRC5 |
-| **Lenguaje de programación** | PYTHON (RoboDK) | RAPID |
+| **Lenguaje de programación** | INFORM (controlador) PYTHON (RoboDK) | RAPID |
 | **Montaje** | Suelo, pared, techo | Suelo, pared, invertido, inclinado |
 | **Protección** | IP54 (muñeca IP67) | IP67 |
 | **Aplicaciones típicas** | Soldadura por arco, manipulación, ensamblaje, dispensado, atención de máquinas | Soldadura por arco, ensamblaje, manipulación, atención de máquinas, empaquetado, limpieza/pintura, desbarbado |
@@ -313,7 +313,7 @@ El cambio de velocidad se puede hacer en cualquier momento, incluso con el robot
 
 El botón [HIGH SPEED] permite mover el robot a una velocidad alta de forma momentánea, sin cambiar el nivel configurado:
 
-- Se debe mantener presionada junto con una tecla de eje.
+- Se debe mantener presionado junto con una tecla de eje.
 - Al soltarla, el robot vuelve a moverse al nivel de velocidad seleccionado.
 - La velocidad de [HIGH SPEED] está definida previamente en el controlador.
 - No funciona cuando el nivel seleccionado es `INCH`.
