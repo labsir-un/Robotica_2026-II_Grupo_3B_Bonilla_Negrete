@@ -80,8 +80,6 @@ T_H = RDK.Item(Target_home,ITEM_TYPE_TARGET)
 robot.MoveJ(T_H)
 
 robot.MoveJ(transl(0, 0, z_surface - z_safe))
-# El centro de la rosa (r=0) corresponde a x=0, y=0
-robot.MoveJ(transl(0, 0, z_surface - z_safe))
 
 # Bajamos a la "superficie" (Z=0)
 robot.MoveL(transl(0, 0, z_surface))

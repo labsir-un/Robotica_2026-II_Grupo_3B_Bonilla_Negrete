@@ -607,28 +607,62 @@ Aplicaciones:
 
 ## 7. Diagrama de flujo de acciones del robot
 
-> Esquema inicial para adaptar a la secuencia realmente implementada. Ajustar las decisiones, movimientos y condiciones de finalización al código anexo.
+El siguiente diagrama representa la secuencia de [FiguraPolar.py](FiguraPolar.py) en su configuración actual de simulación, con el bloque de conexión física comentado. Incluye la inicialización, las comprobaciones del robot y del marco de trabajo, los tres bucles de dibujo y el retorno a Home.
 
 ```mermaid
 flowchart TD
-    A([Inicio]) --> B[Verificar estación, herramienta y referencia]
-    B --> C[Definir parámetros y generar trayectoria polar]
-    C --> D[Simular y revisar alcance y colisiones]
-    D --> E{¿Trayectoria validada?}
-    E -- No --> F[Corregir parámetros o configuración]
-    F --> C
-    E -- Sí --> G[Verificar conexión y condiciones de ejecución física]
-    G --> H{¿Condiciones verificadas?}
-    H -- No --> I[Detener y revisar configuración]
-    I --> G
-    H -- Sí --> J[Ir a posición inicial validada]
-    J --> K[Aproximarse al inicio del trazo]
-    K --> L[Ejecutar trayectoria polar]
-    L --> M[Retirar herramienta y volver a posición final]
-    M --> N([Fin])
+    A([Inicio]) --> B[Crear contornos de LIJAMAN y SAMUEL con TextPath]
+    B --> C[Iniciar API de RoboDK y seleccionar robot]
+    C --> D{¿Robot válido?}
+    D -- No --> ERR[Lanzar excepción y detener script]
+    D -- Sí --> E[Mostrar mensaje de simulación y buscar Frame_from_Target1]
+    E --> F{¿Marco válido?}
+    F -- No --> ERR
+    F -- Sí --> G[Asignar marco y TCP activos]
+    G --> H[Configurar velocidad de 100 mm/s y redondeo de 5 mm]
+    H --> I[Definir parámetros de la curva y alturas de movimiento]
+    I --> J[Obtener target Home y ejecutar MoveJ a Home]
+    J --> K[MoveJ al punto de aproximación: x=0, y=0, z=-50 mm]
+    K --> L[MoveL al origen del plano: x=0, y=0, z=0]
+    L --> M[Inicializar i=0 para la curva polar]
+    M --> N{¿i menor o igual que 200?}
+    N -- Sí --> O[Calcular theta, radio y coordenadas x, y]
+    O --> P[MoveJ al punto calculado con z=0]
+    P --> Q[Incrementar i]
+    Q --> N
+    N -- No --> R[Inicializar índice del contorno LIJAMAN]
+    R --> S{¿Quedan vértices de LIJAMAN?}
+    S -- Sí --> T[MoveL al vértice con coordenadas intercambiadas y z=0]
+    T --> U[Avanzar al siguiente vértice]
+    U --> S
+    S -- No --> V[Inicializar índice del contorno SAMUEL]
+    V --> W{¿Quedan vértices de SAMUEL?}
+    W -- Sí --> X[MoveL al vértice con coordenadas intercambiadas y z=0]
+    X --> Y[Avanzar al siguiente vértice]
+    Y --> W
+    W -- No --> Z[MoveL a x, y del último punto polar y z=-50 mm]
+    Z --> HOME[MoveJ a Home]
+    HOME --> MSG[Mostrar mensaje de finalización]
+    MSG --> FIN([Fin])
+    ERR --> FIN
 ```
 
-**Descripción:** [Explicar cada etapa y su correspondencia con las rutinas del programa. Documentar el comportamiento implementado ante una interrupción o fallo.]
+La curva se recorre con **201 puntos**, correspondientes a los índices de 0 a 200. Para cada uno se calcula:
+
+$$
+\theta = 2\pi\frac{i}{200}, \qquad
+r = 100\left[\cos(2\theta)\sin(5\theta)+1.5\right]
+$$
+
+$$
+x = r\sin(\theta)+300, \qquad y = r\cos(\theta), \qquad z=0
+$$
+
+Después se recorren los vértices de ambos textos con `MoveL`, usando `(y_lij[i], x_lij[i], 0)` y `(y_sam[i], x_sam[i], 0)`. Al finalizar, el movimiento de retiro utiliza las variables `x` e `y` del último punto de la curva polar, no las del último vértice del texto. Todas estas coordenadas están expresadas respecto a `Frame_from_Target1`; `z=-50 mm` corresponde a `z_surface - z_safe` en ese marco inclinado.
+
+Como decisión del equipo, al finalizar los trazos se realiza primero un movimiento hacia el punto de aproximación asociado al último punto de la curva polar, con `z=-50 mm` respecto al marco de trabajo. Desde allí se regresa a `Home` mediante `MoveJ`.
+
+La curva polar utiliza `MoveJ`, aunque su comentario en el código menciona `MoveL`. Las comprobaciones explícitas lanzan una excepción si el robot o el marco no son válidos; el programa no incluye una rutina propia de recuperación o retorno a Home ante fallos, ni una comprobación explícita de validez del target `Home`.
 
 ## 8. Plano de planta de la celda
 
