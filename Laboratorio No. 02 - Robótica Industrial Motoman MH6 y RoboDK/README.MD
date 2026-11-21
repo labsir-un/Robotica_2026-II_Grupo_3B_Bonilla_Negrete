@@ -38,7 +38,7 @@ A continuación se presenta la comparación de las características técnicas de
 | **Repetibilidad** | ±0,08 mm | ±0,03 mm |
 | **Peso del robot** | ≈ 130 kg | ≈ 98 kg |
 | **Controlador** | DX100 / DX200 | IRC5 |
-| **Lenguaje de programación** | PYTHON (RoboDK) | RAPID |
+| **Lenguaje de programación** | INFORM (controlador) PYTHON (RoboDK) | RAPID |
 | **Montaje** | Suelo, pared, techo | Suelo, pared, invertido, inclinado |
 | **Protección** | IP54 (muñeca IP67) | IP67 |
 | **Aplicaciones típicas** | Soldadura por arco, manipulación, ensamblaje, dispensado, atención de máquinas | Soldadura por arco, ensamblaje, manipulación, atención de máquinas, empaquetado, limpieza/pintura, desbarbado |
