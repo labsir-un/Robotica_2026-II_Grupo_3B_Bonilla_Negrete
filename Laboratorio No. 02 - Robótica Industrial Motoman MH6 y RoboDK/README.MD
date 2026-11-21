@@ -685,6 +685,14 @@ El manipulador MH6 tiene **seis grados de libertad rotacionales**. La instalaci�
 
 ## 9. Código desarrollado
 
+La trayectoria se escogió por su atractivo visual: su contorno nos recordó el rostro de un alce. Esta semejanza motivó la elección de una figura que pudiera representarse mediante una ecuación polar y reproducirse con el manipulador.
+
+<p align="center">
+  <img src="imagenes/figura_polar.svg" alt="Gráfica de la figura polar seleccionada" width="420">
+</p>
+
+*Representación de los 201 puntos de la figura, con los ejes intercambiados para mostrarla de frente: Y del marco en horizontal y X en vertical. El intercambio utilizado en el código del robot responde a la orientación del marco de trabajo. Generada con este [script](graficar_trayectoria.py) de python.*
+
 El programa desarrollado en Python está disponible en [FiguraPolar.py](FiguraPolar.py). Genera los puntos de la figura polar y los contornos de los textos `LIJAMAN` y `SAMUEL`, y ejecuta la secuencia de movimientos respecto a `Frame_from_Target1`, comenzando y terminando en `Home`. Los textos identifican a los integrantes del equipo: `LIJAMAN` es el apodo de Emmanuel Bonilla Mitrotti y `SAMUEL` corresponde a Samuel David Negrete Lancheros.
 
 El flujo de ejecución se describe en la sección 7 y los ajustes para simulación o ejecución física se documentan en la sección 5.2. El script utiliza la API de RoboDK y las bibliotecas `math` y `matplotlib`.
