@@ -22,7 +22,7 @@ Comparar el Motoman MH6 y el ABB IRB140, documentar la operación manual del Mot
 9. [Código desarrollado](#9-código-desarrollado)
 10. [Videos de simulación e implementación física](#10-videos-de-simulación-e-implementación-física)
 
-## 1. Comparación técnica de los manipuladores: Motoman MH6 vs ABB IRB 140
+## 1. Comparación técnica de los manipuladores
 
 A continuación se presenta la comparación de las características técnicas de los dos robots industriales Motoman MH6 vs ABB IRB 140.
 
@@ -73,7 +73,7 @@ A continuación se presenta la comparación de las características técnicas de
 - **Carga:** ambos manejan 6 kg, por lo que la elección depende del alcance, la precisión y el ecosistema (controlador y software).
 - **Programación:** el MH6 usa PYTHON; el IRB 140 usa RAPID (IRC5).
 
-## Configuraciones Home 1 y Home 2 del Motoman MH6
+## 2. Configuraciones home1 y home2
 
 El controlador del Motoman MH6 permite definir posiciones de referencia (*home*). Aquí se describen dos: **Home 1** (posición por defecto de fábrica) y **Home 2** (posición con los encoders en cero).
 
@@ -149,7 +149,7 @@ Para trabajar con el robot, el Home 2 es mejor:
 
 El Home 1 es mejor para transportar o guardar el robot por su postura compacta. En conclusión: Home 1 es la posición de entrega y transporte; Home 2 es la de trabajo y referencia.
 
-## Procedimiento para realizar movimientos manuales (Motoman MH6 – Controlador DX100)
+## 3. Procedimiento de movimientos manuales
 
 El movimiento manual (*jog*) se realiza desde el teach pendant del DX100. Permite mover el manipulador de dos formas principales: por articulaciones (cada eje por separado) o en coordenadas cartesianas (el efector final se traslada y rota en los ejes X, Y, Z).
 
@@ -270,7 +270,7 @@ En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el mo
 
 
 
-## Niveles de velocidad para movimientos manuales
+## 4. Niveles de velocidad manual
 
 La velocidad manual determina qué tan rápido se mueve el manipulador cuando se presiona una tecla de eje en modo TEACH. El DX100 ofrece cuatro niveles, que se cambian con las teclas [FAST] y [SLOW] del pendant, y el nivel activo se muestra en todo momento en la pantalla.
 
@@ -423,7 +423,7 @@ La comunicación física se realizó mediante un cable Ethernet entre el PC y el
 5. Colocar el selector del pendant en **REMOTE**, según el procedimiento del laboratorio, y pulsar **Conectar** en RoboDK.
 6. Verificar el estado de conexión y, si es necesario, consultar **Mostrar registro**. Comprobar la lectura de la posición antes de ejecutar la trayectoria desde el PC.
 
-![Panel de conexión de RoboDK al Motoman MH6](Imagenes/conexion_motoman.png)
+![Panel de conexión de RoboDK al Motoman MH6](imagenes/conexion_motoman.png)
 
 *Ejemplo de la interfaz de conexión de RoboDK al Motoman MH6. Permite introducir la IP del controlador, comprobar su accesibilidad mediante ping y gestionar la conexión. Los parámetros deben ajustarse a la configuración de la celda utilizada.*
 
@@ -475,7 +475,7 @@ La comunicación se caracteriza por la capacidad del enlace (Mbit/s) y la frecue
 
 **Fuentes:** [conexión de robots Yaskawa Motoman y driver MotomanHSE](https://robodk.com/doc/en/Robots-Motoman.html), [conexión desde Python y comprobación de estado](https://robodk.com/doc/en/Robot-Drivers-How-use-Robot-Drivers.html) y [API de Python de RoboDK](https://robodk.com/doc/en/PythonAPI/robodk.html).
 
-## Análisis comparativo entre RoboDK y RobotStudio
+## 6. Comparación entre RoboDK y RobotStudio
 
 RoboDK y RobotStudio son herramientas de simulación y programación fuera de línea. Permiten diseñar celdas robotizadas, simular trayectorias y generar el programa del robot en un computador, sin detener la producción ni exponer el equipo real. Se diferencian en su alcance (un solo fabricante frente a múltiples marcas) y en el modo de programar.
 
@@ -493,14 +493,14 @@ RoboDK y RobotStudio son herramientas de simulación y programación fuera de l�
 | **Sistema operativo** | Windows | Windows, Linux y macOS |
 | **Perfil de usuario** | Quien trabaja con robots ABB y requiere exactitud | Quien trabaja con varias marcas o necesita flexibilidad |
 
-### 2. Licenciamiento
+### 6.1. Licenciamiento
 
 Ambos programas requieren licencia para su uso completo.
 
 - RobotStudio: al ser un producto de ABB, ofrece varias modalidades de licencia. En el caso de la Universidad Nacional de Colombia, el convenio con ABB permite solicitar la licencia de forma sencilla, lo que lo convierte en una opción accesible para estudiantes y docentes.
 - RoboDK: se licencia de forma comercial, con una versión de evaluación para probar el software antes de adquirirlo. Conviene consultar con el proveedor las condiciones académicas vigentes.
 
-### 3. Tipo de programación
+### 6.2. Tipo de programación
 
 #### RobotStudio: lenguaje RAPID
 
@@ -541,7 +541,7 @@ robot.MoveL(target2)
 | Un mismo programa se puede adaptar a robots de diferentes marcas | No simula el comportamiento completo del controlador (señales, seguridad, lógica propia del fabricante) |
 | Python permite integrar visión artificial, sensores y otras librerías | Para aplicaciones avanzadas se necesita conocimiento de Python y de la API de RoboDK |
 
-### 4. Compatibilidad con robots
+### 6.3. Compatibilidad con robots
 
 RobotStudio trabaja específicamente con robots ABB. Esto le permite un nivel de integración muy alto con ese fabricante, pero lo limita a su ecosistema.
 
@@ -549,7 +549,7 @@ RoboDK trabaja con una gama extensa de robots de diferentes marcas. Los modelos 
 
 Para el caso de este proyecto, el Motoman MH6 solo puede trabajarse con RoboDK, ya que RobotStudio no admite robots de otras marcas.
 
-### 5. RobotStudio: ventajas, inconvenientes y aplicaciones
+### 6.4. RobotStudio: ventajas, inconvenientes y aplicaciones
 
 Ventajas:
 
@@ -572,7 +572,7 @@ Aplicaciones:
 - Programación fuera de línea de soldadura/decoración, paletizado, manipulación y ensamblaje.
 - Formación y prácticas en programación de robots ABB.
 
-### 6. RoboDK: ventajas, inconvenientes y aplicaciones
+### 6.5. RoboDK: ventajas, inconvenientes y aplicaciones
 
 Ventajas:
 
@@ -595,7 +595,7 @@ Aplicaciones:
 - Investigación, docencia y prototipado, donde se prueban distintos robots con un mismo entorno.
 - Automatización con Python: calibración, integración con visión y generación automática de programas.
 
-### 7. ¿Cuándo usar cada una?
+### 6.6. ¿Cuándo usar cada una?
 
 | Situación | Herramienta recomendada |
 |---|---|
@@ -668,7 +668,7 @@ La curva polar utiliza `MoveJ`, aunque su comentario en el código menciona `Mov
 
 ### 8.1. Vista de planta
 
-![Vista de planta esquemática de la celda](Imagenes/Vista%20de%20planta.png)
+![Vista de planta esquemática de la celda](imagenes/Vista%20de%20planta.png)
 
 *Distribución esquemática de la celda en vista superior, sin escala. Se identifican el manipulador sobre su eje lineal de desplazamiento, el eje externo separado, el controlador, los interruptores y la maquinaria cercana.*
 
@@ -676,11 +676,11 @@ Los colores permiten distinguir el manipulador y el eje externo en verde, el con
 
 ### 8.2. Vista lateral
 
-![Vista lateral de la celda y articulaciones del Motoman MH6](Imagenes/RepLat.jpg)
+![Vista lateral de la celda y articulaciones del Motoman MH6](imagenes/RepLat.jpg)
 
 *Fotografía lateral anotada de la instalación. Se señalan las seis articulaciones del MH6 (S, L, U, R, B y T), el eje externo, el controlador, los interruptores y el sistema de desplazamiento lineal del robot.*
 
-El manipulador MH6 tiene **seis grados de libertad rotacionales**. La instalación incorpora además un eje externo separado y un eje lineal que desplaza el robot completo, para un total de **ocho grados de libertad en el conjunto**. Esta distinción permite conservar los seis grados de libertad del robot en la comparación técnica y reconocer los movimientos adicionales disponibles en la celda.
+El manipulador MH6 tiene **seis grados de libertad rotacionales**. La instalación incorpora además un eje externo separado y un eje lineal que desplaza el robot completo, para un total de **ocho grados de libertad en el conjunto**.
 
 ## 9. Código desarrollado
 
@@ -696,9 +696,10 @@ El flujo de ejecución se describe en la sección 7 y los ajustes para simulaci�
 En el video se muestra el diseño de una rutina que dibuja una trayectoria en coordenadas polares, su simulación y validación en RoboDK, y su ejecución física en el manipulador Motoman MH6, comandado desde el computador.
 
 Contenido:
-Simulación de la trayectoria polar en RoboDK.
-Validación de la trayectoria y definición de los puntos de aproximación.
-Ejecución física de la trayectoria en el Motoman MH6 controlado desde el PC: aproximación, trayectoria y regreso a Home.
+
+- Simulación de la trayectoria polar en RoboDK.
+- Validación de la trayectoria y definición de los puntos de aproximación.
+- Ejecución física de la trayectoria en el Motoman MH6 controlado desde el PC: aproximación, trayectoria y regreso a Home.
 
 <!--
 ## Conclusiones
