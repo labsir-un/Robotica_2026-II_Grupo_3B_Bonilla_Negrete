@@ -262,8 +262,8 @@ En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el mo
 ```
 1. MODE → TEACH
 2. Liberar paro de emergencia
-3. SERVO ON READY (parpadea)
-4. Enable switch apretado suavemente (luz fija)
+3. SERVO ON READY 
+4. Enable switch apretado suavemente 
 5. COORD → elegir Joint / Cartesian / Cylindrical / Tool / User
 6. Mantener tecla de eje → el robot se mueve
 7. Soltar tecla → el robot se detiene
