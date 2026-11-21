@@ -435,7 +435,7 @@ El control de velocidad de simulación permite acelerar o ralentizar la reproduc
 
 ## Análisis comparativo entre RoboDK y RobotStudio
 
-RoboDK y RobotStudio son herramientas de simulación y programación fuera de línea (*offline programming*, OLP). Permiten diseñar celdas robotizadas, simular trayectorias, detectar colisiones y generar el programa del robot en un computador, sin detener la producción ni exponer el equipo real. Se diferencian en su alcance (un solo fabricante frente a múltiples marcas) y en el modo de programar.
+RoboDK y RobotStudio son herramientas de simulación y programación fuera de línea. Permiten diseñar celdas robotizadas, simular trayectorias y generar el programa del robot en un computador, sin detener la producción ni exponer el equipo real. Se diferencian en su alcance (un solo fabricante frente a múltiples marcas) y en el modo de programar.
 
 
 | Aspecto | RobotStudio | RoboDK |
