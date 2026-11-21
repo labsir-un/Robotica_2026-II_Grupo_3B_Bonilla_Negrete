@@ -270,19 +270,80 @@ En modo Tool, los ejes X, Y, Z están fijados a la herramienta, por lo que el mo
 
 
 
-## 4. Niveles de velocidad manual
+## Niveles de velocidad para movimientos manuales
 
-Registrar los niveles disponibles en el controlador utilizado y su indicación real en pantalla.
+La velocidad manual determina qué tan rápido se mueve el manipulador cuando se presiona una tecla de eje en modo TEACH. El DX100 ofrece cuatro niveles, que se cambian con las teclas [FAST] y [SLOW] del pendant, y el nivel activo se muestra en todo momento en la pantalla.
 
-| Nivel / nombre mostrado | Valor y unidad, si se muestran | Tecla o secuencia de selección | Indicador y ubicación en pantalla | Uso durante la práctica |
-|---|---|---|---|---|
-| [Nivel 1] | [Completar] | [Completar] | [Completar] | [Completar] |
-| [Nivel 2] | [Completar] | [Completar] | [Completar] | [Completar] |
-| [Agregar los demás niveles disponibles] | [Completar] | [Completar] | [Completar] | [Completar] |
+### 1. Niveles de velocidad disponibles
 
-**Procedimiento de cambio:** [Describir paso a paso cómo aumentar y disminuir el nivel y cómo confirmar el cambio en la interfaz.]
+<p align="center">
+  <img src="imagenes/velocidad_manual.png" width="500" alt="Niveles de velocidad manual del DX100">
+</p>
 
-**Evidencia:** [Agregar una captura con el indicador de velocidad señalado. Explicar si su interpretación cambia entre movimiento articular y cartesiano.]
+| Nivel | Indicación en pantalla | Descripción | Uso recomendado |
+|---|:---:|---|---|
+| **Inching** | `INCH` | Movimiento por pasos: cada pulsación de la tecla de eje produce un desplazamiento incremental muy pequeño. | Posicionamiento fino y ajuste preciso de puntos. |
+| **Low** (baja) | `SLW` | Velocidad lenta y continua mientras se mantiene presionada la tecla. | Aproximaciones cercanas a piezas, herramientas u obstáculos. |
+| **Medium** (media) | `MED` | Velocidad intermedia. | Movimientos generales de trabajo y enseñanza de puntos. |
+| **High** (alta) | `FST` | Velocidad rápida. | Desplazamientos grandes en zonas despejadas. |
+
+Siempre se recomienda iniciar nen velocidad baja y aumentarla solo cuando la trayectoria esté despejada y el operador tenga control total de la situación.
+
+### 2. Proceso para cambiar entre niveles
+
+Los niveles se recorren de forma cíclica con las dos teclas de velocidad manual (*MANUAL SPEED*), ubicadas en el teclado del pendant:
+
+| Tecla | Efecto | Secuencia |
+|:---:|---|---|
+| **[FAST]** | Aumenta el nivel de velocidad en cada pulsación. | `INCH` → `SLW` → `MED` → `FST` |
+| **[SLOW]** | Disminuye el nivel de velocidad en cada pulsación. | `FST` → `MED` → `SLW` → `INCH` |
+
+Pasos:
+
+1. Gira el selector de modo a TEACH.
+2. Observa en el área de estado cuál es el nivel de velocidad actual.
+3. Presiona [FAST] para subir o [SLOW] para bajar un nivel por pulsación.
+4. Verifica en el área de estado que el icono corresponda al nivel deseado.
+5. Mueve el robot con las teclas de ejes a la velocidad seleccionada.
+
+El cambio de velocidad se puede hacer en cualquier momento, incluso con el robot detenido. El nuevo nivel se aplicará al siguiente movimiento.
+
+### 3. Botón [HIGH SPEED]
+
+El botón [HIGH SPEED] permite mover el robot a una velocidad alta de forma momentánea, sin cambiar el nivel configurado:
+
+- Se debe mantener presionada junto con una tecla de eje.
+- Al soltarla, el robot vuelve a moverse al nivel de velocidad seleccionado.
+- La velocidad de [HIGH SPEED] está definida previamente en el controlador.
+- No funciona cuando el nivel seleccionado es `INCH`.
+
+### 4. Identificar el nivel establecido en la interfaz
+
+El nivel de velocidad activo se muestra en el área de estado, en la parte superior derecha de la pantalla del pendant.
+
+<p align="center">
+  <img src="imagenes/areas_pantalla.png" width="600" alt="Áreas de la pantalla del pendant">
+</p>
+
+Dentro del área de estado, el icono de velocidad manual es el tercero de izquierda a derecha (indicador C en la imagen), a continuación del icono de grupo de ejes (A) y del icono del sistema de coordenadas (B):
+
+<p align="center">
+  <img src="imagenes/area_estado.png" width="600" alt="Área de estado con el indicador de velocidad manual">
+</p>
+
+| Indicador | Nombre | Qué muestra |
+|:---:|---|---|
+| A | Group operation axis | Grupo de ejes que se está moviendo (robot o ejes externos. En nuestro caso existe un eje externo.). |
+| B | Operation coordinate system | Sistema de coordenadas activo (Joint, Cartesian, etc.). |
+| **C** | **Manual speed** | **Nivel de velocidad manual: Inching, Low, Medium o High.** |
+| D | Security mode | Modo de seguridad. |
+
+El icono de velocidad cambia de apariencia según el nivel: las barras de la gráfica aumentan de altura a medida que sube la velocidad, y para el nivel Inching aparece una sola barra marcada. Cada vez que se presiona [FAST] o [SLOW], el icono se actualiza de inmediato.
+
+### Referencias
+
+- Yaskawa. *DX100 Operator's Manual*, sección 2.2.0.5 "Select Manual Speed" y sección 1.2 "Programming Pendant".
+- Ramírez, R., Cárdenas, P. *Fundamentos de Robótica Industrial*. Universidad Nacional de Colombia (diapositivas "Selección de la velocidad manual" y "Área de estado").
 
 ## 5. RoboDK y comunicación con el Motoman
 
@@ -414,21 +475,135 @@ La comunicación se caracteriza por la capacidad del enlace (Mbit/s) y la frecue
 
 **Fuentes:** [conexión de robots Yaskawa Motoman y driver MotomanHSE](https://robodk.com/doc/en/Robots-Motoman.html), [conexión desde Python y comprobación de estado](https://robodk.com/doc/en/Robot-Drivers-How-use-Robot-Drivers.html) y [API de Python de RoboDK](https://robodk.com/doc/en/PythonAPI/robodk.html).
 
-## 6. Comparación entre RoboDK y RobotStudio
+## Análisis comparativo entre RoboDK y RobotStudio
 
-| Criterio | RoboDK | RobotStudio |
+RoboDK y RobotStudio son herramientas de simulación y programación fuera de línea. Permiten diseñar celdas robotizadas, simular trayectorias y generar el programa del robot en un computador, sin detener la producción ni exponer el equipo real. Se diferencian en su alcance (un solo fabricante frente a múltiples marcas) y en el modo de programar.
+
+
+| Aspecto | RobotStudio | RoboDK |
 |---|---|---|
-| Fabricantes y robots compatibles | [Completar] | [Completar] |
-| Programación y lenguajes / API | [Completar] | [Completar] |
-| Simulación y relación con el controlador real | [Completar] | [Completar] |
-| Comunicación con el robot físico | [Completar] | [Completar] |
-| Herramientas de análisis y validación | [Completar] | [Completar] |
-| Licencias y funciones disponibles en la versión utilizada | [Completar] | [Completar] |
-| Ventajas | [Completar] | [Completar] |
-| Limitaciones | [Completar] | [Completar] |
-| Aplicaciones recomendadas | [Completar] | [Completar] |
+| **Desarrollador** | ABB Robotics | RoboDK Inc. |
+| **Marcas de robots** | Exclusivamente ABB | Más de 500 modelos de múltiples fabricantes (ABB, KUKA, Yaskawa/Motoman, Fanuc, Universal Robots, entre otros) |
+| **Librería de robots** | Modelos ABB incluidos con el software | Librería en la nube, con descarga de los modelos que se necesiten |
+| **Licencia** | De pago, con distintas modalidades (incluida una para universidades). Con el convenio entre la Universidad Nacional de Colombia y ABB, la licencia se puede solicitar fácilmente | De pago, con versión de evaluación |
+| **Lenguaje de programación** | RAPID | Programas gráficos por instrucciones, bloques y Python (API) |
+| **Controlador virtual** | Sí: controlador virtual idéntico al real (IRC5 / OmniCore) | No replica el controlador real: genera el programa mediante posprocesadores |
+| **Precisión de la simulación** | Muy alta para robots ABB | Buena para cinemática y trayectorias; depende del posprocesador en lo específico de cada marca |
+| **Conexión con el robot real** | Nativa con controladores ABB | Mediante controladores (*drivers*) para varias marcas |
+| **Sistema operativo** | Windows | Windows, Linux y macOS |
+| **Perfil de usuario** | Quien trabaja con robots ABB y requiere exactitud | Quien trabaja con varias marcas o necesita flexibilidad |
 
-**Interpretación del equipo:** [¿Qué representa cada herramienta para ustedes? Relacionar la comparación con la experiencia del laboratorio 1 y del laboratorio 2 y justificar en qué casos elegirían cada una. Citar las fuentes de las características técnicas.]
+### 2. Licenciamiento
+
+Ambos programas requieren licencia para su uso completo.
+
+- RobotStudio: al ser un producto de ABB, ofrece varias modalidades de licencia. En el caso de la Universidad Nacional de Colombia, el convenio con ABB permite solicitar la licencia de forma sencilla, lo que lo convierte en una opción accesible para estudiantes y docentes.
+- RoboDK: se licencia de forma comercial, con una versión de evaluación para probar el software antes de adquirirlo. Conviene consultar con el proveedor las condiciones académicas vigentes.
+
+### 3. Tipo de programación
+
+#### RobotStudio: lenguaje RAPID
+
+RAPID es el lenguaje de programación textual de los robots ABB. En RobotStudio el programa se escribe, edita y depura en un editor de código, y se prueba en el controlador virtual.
+
+```rapid
+MoveJ p10, v1000, z50, tool0;
+MoveL p20, v500, fine, tool0;
+```
+
+| Ventajas | Inconvenientes |
+|---|---|
+| Control total sobre el comportamiento del robot (comunicaciones, manejo de errores, lógica compleja) | Curva de aprendizaje mayor: hay que conocer la sintaxis y las estructuras de RAPID |
+| El código es el mismo que se ejecuta en el robot real, sin conversiones | Solo sirve para robots ABB; no se reutiliza en otras marcas |
+| Permite validar el programa con el controlador virtual antes de llevarlo al robot | Programar a mano trayectorias largas o complejas es más lento |
+| Es el estándar para aplicaciones industriales en ABB | Requiere conocer bien el modelo de datos del robot (herramientas, sistemas de coordenadas, datos de carga) |
+
+#### RoboDK: instrucciones, bloques y Python
+
+RoboDK permite crear programas de forma gráfica, agregando instrucciones de movimiento (`MoveJ`, `MoveL`), de E/S y de control sobre una lista de pasos. También se pueden escribir scripts en Python que controlan la estación de trabajo mediante su API.
+
+```python
+from robodk import robolink
+
+RDK = robolink.Robolink()
+robot = RDK.Item('', robolink.ITEM_TYPE_ROBOT)
+target1 = RDK.Item('Target 1')
+target2 = RDK.Item('Target 2')
+
+robot.MoveJ(target1)
+robot.MoveL(target2)
+```
+
+| Ventajas | Inconvenientes |
+|---|---|
+| Programación accesible: por instrucciones y bloques, sin necesidad de dominar el lenguaje de cada robot | El programa se traduce al lenguaje del robot mediante un posprocesador, por lo que puede requerir ajustes |
+| Python facilita automatizar tareas, procesar datos y generar trayectorias desde CAD o desde código | Algunas instrucciones muy específicas de un controlador pueden no estar soportadas o requerir personalizar el posprocesador |
+| Un mismo programa se puede adaptar a robots de diferentes marcas | No simula el comportamiento completo del controlador (señales, seguridad, lógica propia del fabricante) |
+| Python permite integrar visión artificial, sensores y otras librerías | Para aplicaciones avanzadas se necesita conocimiento de Python y de la API de RoboDK |
+
+### 4. Compatibilidad con robots
+
+RobotStudio trabaja específicamente con robots ABB. Esto le permite un nivel de integración muy alto con ese fabricante, pero lo limita a su ecosistema.
+
+RoboDK trabaja con una gama extensa de robots de diferentes marcas. Los modelos están disponibles en una librería en la nube, de la cual se descargan los que se necesiten para la celda.
+
+Para el caso de este proyecto, el Motoman MH6 solo puede trabajarse con RoboDK, ya que RobotStudio no admite robots de otras marcas.
+
+### 5. RobotStudio: ventajas, inconvenientes y aplicaciones
+
+Ventajas:
+
+- Controlador virtual idéntico al real, que permite probar el programa RAPID con la lógica y los tiempos reales del robot.
+- Integración total con los controladores ABB, incluida la conexión con el robot físico.
+- Paquetes especializados por proceso (por ejemplo, soldadura por arco) que automatizan la generación de trayectorias.
+- Simulación muy fiel, útil para validar una celda antes de construirla o modificarla.
+- Licencia accesible para la comunidad universitaria gracias al convenio con ABB.
+
+Inconvenientes:
+
+- Solo funciona con robots ABB.
+- Requiere aprender RAPID.
+- Solo está disponible para Windows y suele necesitar un equipo con buenas prestaciones.
+- Los paquetes de procesos específicos pueden implicar licencias adicionales.
+
+Aplicaciones:
+
+- Puesta en marcha virtual y validación de celdas robotizadas con robots ABB.
+- Programación fuera de línea de soldadura/decoración, paletizado, manipulación y ensamblaje.
+- Formación y prácticas en programación de robots ABB.
+
+### 6. RoboDK: ventajas, inconvenientes y aplicaciones
+
+Ventajas:
+
+- Soporta múltiples marcas y más de 500 modelos de robots, con librería en la nube.
+- Programación flexible: instrucciones, bloques y Python.
+- Facilita trabajar con CAD/CAM, por ejemplo, para generar trayectorias a partir de piezas y superficies.
+- Disponible en Windows, Linux y macOS
+
+Inconvenientes:
+
+- No reproduce el comportamiento completo del controlador del fabricante.
+- La calidad del código generado depende del posprocesador de cada marca.
+- Para conectarse a algunos robots reales se requieren controladores o interfaces del fabricante.
+- Es menos exacto que RobotStudio en lo específico de los robots ABB.
+
+Aplicaciones:
+
+- Celdas con robots de distintas marcas o con cambio frecuente de modelo.
+- Mecanizado, impresión 3D, soldadura, pulido y manipulación con trayectorias generadas desde CAD.
+- Investigación, docencia y prototipado, donde se prueban distintos robots con un mismo entorno.
+- Automatización con Python: calibración, integración con visión y generación automática de programas.
+
+### 7. ¿Cuándo usar cada una?
+
+| Situación | Herramienta recomendada |
+|---|---|
+| Se trabaja únicamente con robots ABB y se necesita la máxima fidelidad | RobotStudio |
+| Se necesita validar lógica, señales digitales de E/S y tiempos del controlador | RobotStudio |
+| La celda incluye robots de varias marcas (por ejemplo, ABB y Motoman) | RoboDK |
+| Se busca programar con Python o de forma gráfica, sin aprender el lenguaje de cada fabricante | RoboDK |
+| Se generan trayectorias desde modelos CAD (mecanizado, impresión 3D, soldadura) | RoboDK |
 
 ## 7. Diagrama de flujo de acciones del robot
 
